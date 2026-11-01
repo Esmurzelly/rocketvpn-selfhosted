@@ -62,12 +62,12 @@ export default function Header() {
         </nav>
 
         <div>
-          <Link href="/" className={`${pill} hidden xl:flex min-w-[123px] items-center gap-1 xl:px-[37px] xl:py-[18px] text-[12px]`}>
+          <Link href="/" className={`${pill} hidden xl:flex min-w-[123px] items-center gap-[6px] xl:px-[37px] xl:py-[18px] text-[12px]`}>
             <Image
               src="/icons/sign-in.svg"
               alt="sign-in.svg"
-              width={12}
-              height={12}
+              width={10}
+              height={10}
               priority
               className=""
             />
@@ -81,7 +81,7 @@ export default function Header() {
             aria-label={showModal ? "Закрыть меню" : "Открыть меню"}
             className={`${pill} min-w-[90px] xl:hidden`}
           >
-            {showModal ? "Закрыть" : "Меню"}
+            Меню
           </button>
         </div>
       </div>

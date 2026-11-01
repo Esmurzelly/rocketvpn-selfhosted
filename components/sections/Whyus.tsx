@@ -67,13 +67,13 @@ const Whyus = (props: Props) => {
                             </ul>
                         </div>
 
-                        <div className="pb-[23px] xl:flex xl:flex-col xl:self-stretch xl:pb-0">
+                        <div className="xl:flex xl:flex-col xl:self-stretch pb-[23px] xl:pb-0">
                             <Image
                                 src="/images/speed.png"
                                 alt="Спидометр и загрузка файла на высокой скорости"
                                 width={220}
                                 height={118}
-                                className="mx-auto h-auto w-full max-w-[220px] self-center xl:w-[307px]"
+                                className="mx-auto h-auto w-full max-w-[300px] self-center xl:w-[420px]"
                             />
 
                             <div className="flex flex-row items-center gap-3 xl:mt-auto">
@@ -85,7 +85,7 @@ const Whyus = (props: Props) => {
                                     className="h-auto w-full max-w-[32px] self-center xl:max-w-[42px]"
                                 />
 
-                                <div className="flex w-full flex-col items-start gap-[3px]">
+                                <div className="mt-[30px] xl:mt-[0px] flex w-full flex-col items-start gap-[3px]">
                                     <p className="text-[10px] leading-[135%] tracking-[-0.02em] xl:text-[13px]">Breaking Bad.mp4</p>
 
                                     <div className="flex w-full flex-row items-center justify-between">

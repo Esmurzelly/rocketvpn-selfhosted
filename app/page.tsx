@@ -14,7 +14,7 @@ export const metadata = buildMetadata("home");
 export default function Home() {
   return (
     <main>
-      <Hero h1_string="Свобода в интернете с Rocket VPN" description="Одно решение для всего: обход белых списков, прокси для Telegram, YouTube без рекламы. Подключился — и просто пользуешься" />
+      <Hero h1_string="Быстрый VPN для свободного доступа в интернет" description="Rocket VPN для свободного и безопасного доступа в интернет. Высокая скорость, стабильные серверы, поддержка Windows, Android, iPhone, macOS и Android TV." />
       <Whyus />
       <Countries />
       <CtaBanner />

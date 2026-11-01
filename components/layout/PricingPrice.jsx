@@ -10,7 +10,7 @@ export default function PricingPlans() {
   const [activeId, setActiveId] = useState("3m"); // на десктопе по умолчанию 3 месяца
 
   return (
-    <div className="flex flex-col mt-[18px] gap-4 xl:grid xl:grid-cols-[22%_minmax(0,1fr)_29%] xl:rounded-[40px] xl:border xl:border-bg-country-border xl:bg-bg-country xl:p-4">
+    <div className="flex flex-col bg-card-price-list mt-[18px] gap-4 xl:grid xl:grid-cols-[22%_minmax(0,1fr)_29%] xl:rounded-[40px] xl:border xl:border-bg-country-border  xl:p-4">
       {/* desktop */}
       <ul className="hidden xl:flex xl:flex-col xl:gap-3">
         {plans.map((p) => {
@@ -45,7 +45,7 @@ export default function PricingPlans() {
             key={p.id}
             className={`flex flex-col min-w-[280px]
               max-xl:w-[88%] max-xl:shrink-0 max-xl:snap-start max-xl:rounded-card-choose-mobile
-              max-xl:border max-xl:border-bg-country-border max-xl:bg-card-gray max-xl:p-5
+              max-xl:border max-xl:border-bg-country-border max-xl:p-5
               xl:h-full xl:px-6 xl:py-4
               ${p.id === activeId ? "" : "xl:hidden"}`}
           >
@@ -71,7 +71,7 @@ export default function PricingPlans() {
             </ul>
 
             <div className="mt-[75px] flex flex-col items-center gap-3 xl:flex-row xl:items-center xl:gap-[18px] xl:pt-10">
-              <ButtonLink href={p.payUrl} iconBoolean={false} className="w-full py-[25px] text-[12px] xl:w-auto xl:px-10">Перейти к оплате</ButtonLink>
+              <ButtonLink href="/" iconBoolean={false} className="w-full py-[25px] text-[12px] xl:w-auto xl:px-10">Перейти к оплате</ButtonLink>
 
               <div className="text-center xl:text-left">
                 <p className="text-[12px] xl:text-[26px]">

@@ -25,7 +25,7 @@ export default function ServicesGrid({ groups = serviceGroups, headingTag: Headi
                 <li key={item.href}>
                   <Link
                     href={item.href}
-                    className="flex h-[65px] flex-col items-center justify-center gap-2 rounded-[12px] border border-bg-country-border bg-bg-country text-[10px] leading-[120%] tracking-[-0.02em] transition-colors hover:border-button-dark-border hover:bg-bg-button-tarif-gray xl:h-[128px] xl:rounded-[16px] xl:text-[18px]"
+                    className="flex h-[65px] flex-col items-center justify-center gap-2 rounded-[12px] border border-bg-country-border bg-card-gray text-[10px] leading-[120%] tracking-[-0.02em] transition-colors hover:border-button-dark-border hover:bg-bg-button-tarif-gray xl:h-[128px] xl:rounded-[16px] xl:text-[18px]"
                   >
                     <Image
                       src={item.icon}

@@ -11,7 +11,7 @@ const page = (props: Props) => {
     <main>
       <section className='pt-[100px] xl:pt-[160px] text-center px-[14px] pb-[40px] leading-[120%]'>
         <div className="text-left xl:text-center">
-          <h1 className='text-[26px] xl:text-[56px] max-w-[880px] mx-auto tracking-[-0.05em]'>Поддержка Rocket VPN 24/7 — помощь с подключением и настройкой</h1>
+          <h1 className='text-[26px] xl:text-[56px] max-w-[880px] mx-auto tracking-[-0.05em]'>Поддержка Rocket VPN 24/7</h1>
           <p className='mt-[20px] xl:mt-[30px] text-[12px] max-w-[740px] mx-auto xl:text-[18px] xl:leading-[140%] tracking-[-0.05em]'>Служба поддержки Rocket VPN работает круглосуточно. Поможем с установкой, подключением, оплатой, тарифами и настройкой VPN на разных устройствах.</p>
         </div>
 

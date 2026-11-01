@@ -89,7 +89,7 @@
   /* .bg-card-gray-desktop {
     background: radial-gradient(50% 50% at 50% 50%, #0C0C0D 0%, #141618 100%);
   } */
-  
+
   /* .bg-card-gray-mobile {
     background-image: radial-gradient(circle, #0C0C0D, #0C0C0D00);
   } */
@@ -97,28 +97,32 @@
 
 @utility bg-card-gray {
   /* мобильная версия */
-  background-color: #141618;
-  background-image: radial-gradient(50% 50% at 50% 50%, #0c0c0d 0%, #0c0c0d00 100%);
+  background: radial-gradient(199.48% 123.57% at 97.19% 122.93%,
+      #0C0C0D 0%,
+      rgba(12, 12, 13, 0) 100%);
+}
 
-  @media (min-width: 80rem) {
-    background-image: radial-gradient(50% 50% at 50% 50%, #0c0c0d 0%, #141618 100%);
-  }
+@utility bg-card-price-list {
+  background: linear-gradient(275.12deg, #0C0C0D -63.44%, #141618 136.53%);
 }
 
 @utility bg-card-total {
   /* мобильная версия */
-  background-image: linear-gradient(to bottom, #0C0C0D, #121417, #33363E); /* bottom */
+  background: linear-gradient(178.12deg, #0C0C0D 1.4%, #121417 73.53%, #33363E 178.31%);
 
   @media (min-width: 80rem) {
-    background-image: linear-gradient(to top right, #0C0C0D, #121417, #33363E);
+    background: linear-gradient(64.72deg, #0C0C0D 6.59%, #121417 54.1%, #33363E 123.13%);
   }
 }
 
 @utility no-scrollbar {
-  -ms-overflow-style: none;   /* старый Edge */
-  scrollbar-width: none;      /* Firefox */
+  -ms-overflow-style: none;
+  /* старый Edge */
+  scrollbar-width: none;
+  /* Firefox */
 
   &::-webkit-scrollbar {
-    display: none;            /* Chrome, Safari */
+    display: none;
+    /* Chrome, Safari */
   }
 }

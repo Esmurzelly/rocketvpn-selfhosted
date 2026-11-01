@@ -34,10 +34,10 @@ const Countries = (props: Props) => {
         <section id="countries" className="flex flex-col items-center px-[16px] xl:px-0 xl:w-[1180px] xl:mx-auto mt-[64px]">
             <h2 className="text-[26px] xl:text-[56px] leading-[120%] tracking-[-0.05em] text-center xl:text-left w-full">Доступные страны</h2>
 
-            <div className="mt-[25px] -mx-4 overflow-auto w-full grid no-scrollbar xl:mx-0 xl:overflow-visible xl:px-0">
+            <div className="no-scrollbar -mx-4 mt-[25px] self-stretch overflow-x-auto overflow-y-hidden px-4 xl:mx-0 xl:overflow-visible xl:px-0">
                 <ul className="grid w-max grid-cols-[repeat(4,240px)] xl:grid-cols-[repeat(4,280px)] gap-[10px] xl:gap-[20px] xl:w-full xl:grid-rows-5">
                     {items.map((item) => (
-                        <li className="rounded-button w-full flex flex-row items-center justify-between bg-bg-country border border-bg-country-border p-[10px]" key={item.id}>
+                        <li className="rounded-button w-full flex flex-row items-center justify-between bg-bg-country border border-bg-country-border px-[10px] py-[6px]" key={item.id}>
                             <div className="flex flex-row items-center gap-3">
                                 {item.id === 19 ?
                                     <Image

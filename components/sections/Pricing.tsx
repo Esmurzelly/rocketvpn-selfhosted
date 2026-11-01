@@ -17,7 +17,7 @@ export default function Pricing() {
 
         <div className="mt-8 xl:mt-5 grid gap-4 xl:grid-cols-[1fr_2fr]">
           <article
-            className={`${card} isolate min-h-[288px] xl:min-h-[300px]
+            className={`${card} bg-card-price-list isolate min-h-[288px] xl:min-h-[300px]
     before:pointer-events-none before:absolute before:inset-0 before:-z-10 before:content-['']
     before:bg-[url('/images/circle-bg.png')] before:top-[40%] before:bg-cover before:bg-bottom before:bg-no-repeat`}
           >
@@ -35,7 +35,7 @@ export default function Pricing() {
             />
           </article>
 
-          <article className={`${card} min-h-[320px] xl:min-h-[300px]`}>
+          <article className={`${card} min-h-[320px] xl:min-h-[300px] bg-card-price-list`}>
             <h3 className="text-[16px] leading-[120%] xl:text-[20px]">Реферальная программа</h3>
             <p className="mt-3 text-[14px] xl:text-[16px] leading-[140%] text-text-gray xl:max-w-[280px]">
               Получай +20 дней к подписке за каждого приглашенного друга

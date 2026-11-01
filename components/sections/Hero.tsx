@@ -42,19 +42,19 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
     width: 272,
     height: 346,
     sizes: "272px",
-    className: `h-auto xl:w-[588px] xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "w-full max-w-[420px]" : "min-w-[220px]"
+    className: `h-auto xl:w-[588px] xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "max-w-[420px]" : "min-w-[220px]"
       }`,
   });
 
   return (
     <section className="rounded-b-[30px] xl:rounded-b-[60px] bg-card-total w-full">
       <div
-        className="mx-auto flex max-w-[1180px] flex-col items-center gap-2 pb-[120px] xl:pb-[0px] pt-[90px] text-center
+        className="mx-auto flex max-w-[1180px] flex-col items-center gap-2 pb-[39px] xl:pb-[0px] pt-[90px] text-center
           xl:grid xl:grid-cols-[342px_minmax(0,1fr)_290px] xl:items-center xl:gap-x-6
           xl:text-left"
       >
-        <div className="xl:w-[430px]">
-          <h1 className="px-[38px] xl:px-0 text-[38px] leading-[120%] tracking-[-0.05em] xl:text-[54px]">
+        <div className="xl:w-[430px] xl:h-full xl:mt-[100px]">
+          <h1 className="px-[38px] xl:px-0 xl:w-[500px] text-[38px] leading-[120%] tracking-[-0.05em] xl:text-[54px]">
             {h1_string}
           </h1>
 
@@ -64,7 +64,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
 
           <ButtonLink
             iconBoolean
-            className="mx-auto mt-[24px] xl:mt-[64px] min-w-[203px] py-[20px] xl:mx-0 xl:px-[44px] xl:py-[25px]"
+            className="mx-auto mt-[24px] xl:mt-[34px] min-w-[203px] py-[20px] xl:mx-0 xl:px-[44px] xl:py-[25px]"
             href="/tarif"
           >
             Подключить бесплатно
@@ -72,7 +72,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
 
           <hr className="mx-auto my-[15px] xl:my-[25px] h-px w-[203px] border-0 bg-bg-button-tarif-gray xl:mx-0" />
 
-          <div className="mx-auto flex w-[80%] flex-row items-start gap-[14px] xl:mx-0">
+          <div className="mx-auto flex w-[60%] flex-row items-start gap-[14px] xl:mx-0">
             <Image
               src="/icons/users.svg"
               alt=""
@@ -102,7 +102,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
             <img {...mobile} loading="eager" fetchPriority="high" />
           </picture>
 
-          <ul className={`text-left xl:mb-24 xl:flex xl:flex-col xl:gap-8 xl:pl-[60px] xl:text-nowrap ${wide ? "grid w-full grid-cols-3 gap-x-4 px-[20px]" : "flex flex-col gap-8"
+          <ul className={`text-left xl:flex xl:flex-col xl:gap-8 xl:pl-[60px] xl:h-full xl:mt-[100px] xl:text-nowrap ${wide ? "grid w-full grid-cols-3 gap-x-4 px-[20px]" : "flex flex-col gap-8"
             }`}>
             {stats.map((s) => (
               <li key={s.n} className="flex flex-col items-start">
