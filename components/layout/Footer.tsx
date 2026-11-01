@@ -10,6 +10,7 @@ export default function Footer() {
       <div className="max-w-[1180px] mx-auto grid grid-cols-2 gap-x-6 gap-y-5 xl:grid-cols-[250px_repeat(4,1fr)]">
         <div className="col-span-2 w-fit xl:col-span-1 text-[14px]">
           <Logo className="!py-2 !px-0 !border-none" />
+          
         </div>
 
         {footerColumns.map((col) => (
