@@ -1,0 +1,145 @@
+import Image from "next/image";
+
+const card =
+    "relative overflow-hidden border border-bg-country-border bg-card-gray p-[20px] pb-[0px] " +
+    "rounded-card-choose-mobile xl:rounded-card-choose-desktop " +
+    "rounded-[30px]";
+
+const title = "text-[16px] leading-[120%] xl:text-[20px]";
+const text = "mt-3 text-[12px] xl:text-[16px] leading-[140%] text-text-gray";
+const tag =
+    "rounded-button border border-bg-country-border px-3 py-1 text-[10px] xl:text-[14px] xl:text-nowrap text-text-gray";
+
+
+type Props = {}
+
+const Whyus = (props: Props) => {
+    return (
+        <section className="bg-bg flex flex-col items-center px-[16px] xl:px-0 mt-[54px] xl:mt-[74px] text-center xl:w-[1180px] xl:mx-auto">
+            <div className="mx-auto w-full max-w-content">
+                <h2 className="text-[26px] xl:text-[56px] leading-[120%] tracking-[-0.05em] w-[188px] xl:w-auto mx-auto xl:text-left">Почему нас выбирают?</h2>
+
+                <div className="mt-15 text-left grid gap-4 xl:mt-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.75fr)] xl:grid-rows-2">
+                    <article className={`${card} flex flex-col xl:p-[35px] xl:row-span-2 !pb-[0px]`}>
+                        <h3 className={title}>
+                            Безграничный доступ <br /> к глобальному контенту
+                        </h3>
+                        <p className={`${text} xl:w-[319px]`}>
+                            Обходите географические блокировки и получайте доступ к социальным
+                            сетям, стриминговым платформам и сайтам
+                        </p>
+
+                        <div className="xl:relative xl:h-full xl:flex xl:flex-col">
+                            <span className="hidden xl:flex items-center gap-1 bg-transparent border border-[#1C1E24] absolute bg-button-orange rounded-button top-28 left-1/2 -translate-x-1/2 text-[14px] px-[6px] py-[3px] text-text-gray whitespace-nowrap">
+                                Нидерланды
+                                <Image
+                                    src="/icons/network.svg"
+                                    alt="Смартфон с приложениями ChatGPT, YouTube, Discord и Rocket VPN"
+                                    width={11}
+                                    height={11}
+                                    sizes=""
+                                    className="max-w-[11px]"
+                                />
+                            </span>
+                            <Image
+                                src="/images/phone-apps.png"
+                                alt="Смартфон с приложениями ChatGPT, YouTube, Discord и Rocket VPN"
+                                width={247}
+                                height={400}
+                                sizes="(min-width: 1024px) 247px, 100vw"
+                                className="mx-auto mt-auto xl:mt-[70px] h-auto w-full max-w-[247px] xl:max-w-[310px] pt-[34px] xl:pt-[83px]"
+                            />
+                        </div>
+
+                    </article>
+
+                    <article className={`${card} flex flex-col gap-6 xl:p-[35px] xl:flex-row xl:items-center xl:justify-between`}>
+                        <div className="xl:max-w-[260px] h-full xl:flex xl:flex-col xl:items-start xl:justify-between">
+                            <h3 className={title}>
+                                Стабильная скорость <br /> и никаких ограничений
+                            </h3>
+                            <p className={text}>
+                                Серверы в 25+ странах оптимизированы для работы с ресурсоёмкими задачами
+                            </p>
+                            <ul className="mt-3 flex flex-col items-start justify-between gap-2 ">
+                                <li className={tag}>безлимитный трафик</li>
+                                <li className={tag}>без ограничений по количеству устройств</li>
+                            </ul>
+                        </div>
+
+                        <div className="pb-[23px] xl:pb-0">
+                            <Image
+                                src="/images/speed.png"
+                                alt="Спидометр и загрузка файла на высокой скорости"
+                                width={220}
+                                height={118}
+                                className="h-auto w-full mx-auto max-w-[220px] xl:w-[307px] self-center"
+                            />
+                            <div className="flex flex-row items-center gap-3">
+                                <Image
+                                    src="/icons/video-player.svg"
+                                    alt="Спидометр и загрузка файла на высокой скорости"
+                                    width={32}
+                                    height={32}
+                                    className="h-auto w-full max-w-[32px] self-center"
+                                />
+
+                                <div className="w-full flex flex-col items-start gap-[3px]">
+                                    <p className='text-[10px] leading-[135%] tracking-[-0.02em]'>Breaking Bad.mp4</p>
+
+                                    <div className="w-full flex flex-row justify-between items-center">
+                                        <span className='text-[7px] text-text-gray leading-[135%] tracking-[-0.02em]'>2.64GB</span>
+                                        <span className='text-[7px] text-text-gray leading-[135%] tracking-[-0.02em]'>67.7%</span>
+                                    </div>
+
+                                    <div className="relative w-full h-[1.65px] bg-gray-200 rounded-[9px]">
+                                        <div className="absolute top-0 left-0 h-full w-2/3 bg-button-orange rounded-l-[9px]"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article className={`${card} !pb-4 flex flex-col gap-6 xl:p-[35px] xl:flex-row xl:items-center xl:justify-between`}>
+                        <div className="max-w-[95%] xl:max-w-[290px] xl:h-full">
+                            <h3 className={title}>
+                                Высокий уровень <br /> безопасности пользователей
+                            </h3>
+                            <p className={`${text}`}>
+                                Шифрование AES-256 и защита от утечек DNS. Даже ваш интернет-провайдер
+                                не получит доступ к истории посещений
+                            </p>
+                        </div>
+
+                        <div className="h-full flex flex-col justify-between">
+                            <div className="mt-[35px] xl:mt-0 mb-[26px] xl:mb-[7px] flex flex-row items-center justify-between">
+                                <div className="flex flex-row items-center gap-1">
+                                    <Image
+                                        src="/icons/power-off.svg"
+                                        alt="Защита Rocket VPN"
+                                        width={6}
+                                        height={6}
+                                        className="h-auto w-full max-w-[6px] self-center"
+                                    />
+                                    <span className='text-[8px] text-text-gray leading-[120%] tracking-[-0.02em]'>Подключено</span>
+                                </div>
+
+                                <span className='text-[8px] text-text-gray leading-[120%] tracking-[-0.02em]'>Rocket VPN</span>
+                            </div>
+
+                            <Image
+                                src="/images/protection.png"
+                                alt="Защита Rocket VPN"
+                                width={225}
+                                height={177}
+                                className="h-auto w-full mx-auto max-w-[225px] xl:w-[300px] self-center"
+                            />
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+export default Whyus
