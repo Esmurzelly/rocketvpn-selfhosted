@@ -101,7 +101,7 @@ const Whyus = (props: Props) => {
                         </div>
                     </article>
 
-                    <article className={`${card} !pb-4 flex flex-col gap-6 xl:p-[35px] xl:flex-row xl:items-center xl:justify-between`}>
+                    <article className={`${card} !pb-4 flex flex-col gap-6 xl:gap-[82px] xl:p-[35px] xl:flex-row xl:items-center xl:justify-between`}>
                         <div className="max-w-[95%] xl:max-w-[290px] xl:h-full">
                             <h3 className={title}>
                                 Высокий уровень <br /> безопасности пользователей
@@ -112,7 +112,7 @@ const Whyus = (props: Props) => {
                             </p>
                         </div>
 
-                        <div className="h-full flex flex-col justify-between">
+                        <div className="h-full w-full flex flex-col justify-between">
                             <div className="mt-[35px] xl:mt-0 mb-[26px] xl:mb-[7px] flex flex-row items-center justify-between">
                                 <div className="flex flex-row items-center gap-1">
                                     <Image
@@ -120,12 +120,12 @@ const Whyus = (props: Props) => {
                                         alt="Защита Rocket VPN"
                                         width={6}
                                         height={6}
-                                        className="h-auto w-full max-w-[6px] self-center"
+                                        className="h-auto w-full max-w-[6px] xl:max-w-[9px] self-center"
                                     />
-                                    <span className='text-[8px] text-text-gray leading-[120%] tracking-[-0.02em]'>Подключено</span>
+                                    <span className='text-[8px] xl:text-[10px] text-text-gray leading-[120%] tracking-[-0.02em]'>Подключено</span>
                                 </div>
 
-                                <span className='text-[8px] text-text-gray leading-[120%] tracking-[-0.02em]'>Rocket VPN</span>
+                                <span className='text-[8px] xl:text-[10px] text-text-gray leading-[120%] tracking-[-0.02em]'>Rocket VPN</span>
                             </div>
 
                             <Image
@@ -133,7 +133,7 @@ const Whyus = (props: Props) => {
                                 alt="Защита Rocket VPN"
                                 width={225}
                                 height={177}
-                                className="h-auto w-full mx-auto max-w-[225px] xl:w-[300px] self-center"
+                                className="h-auto w-full mx-auto max-w-[225px] xl:max-w-[300px] self-center"
                             />
                         </div>
                     </article>
