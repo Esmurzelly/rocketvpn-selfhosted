@@ -42,7 +42,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
     width: 272,
     height: 346,
     sizes: "272px",
-    className: `border border-red-600 h-auto xl:w-[588px] xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "w-full max-w-[420px]" : "min-w-[220px]"
+    className: `h-auto xl:w-[588px] xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "w-full max-w-[420px]" : "min-w-[220px]"
       }`,
   });
 
