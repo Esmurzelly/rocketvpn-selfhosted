@@ -1,4 +1,4 @@
-export type HeroPicture = "phone" | "phone-2" | "laptop" | "laptop-2" | "tv";
+export type HeroPicture = "phone" | "phone-2" | "phone-3" | "laptop" | "laptop-2" | "tv";
 
 export const heroPictureBySlug: Record<string, HeroPicture> = {
   steam: "laptop",
@@ -12,8 +12,8 @@ export const heroPictureBySlug: Record<string, HeroPicture> = {
 
   windows: "laptop-2",
 
-  android: "phone-2",
-  appleios: "phone-2",
+  android: "phone-3",
+  appleios: "phone",
 
   androidtv: "tv",
 };

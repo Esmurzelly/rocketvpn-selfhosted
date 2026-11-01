@@ -32,7 +32,7 @@ const CtaBanner = () => {
           </ul>
 
           <div className="hidden mt-[40px] items-center gap-[20px] xl:flex">
-            <ButtonLink iconBoolean={true} className="min-w-[237px] px-[26.5px] py-[25px]" href="/tarif">Подключить VPN</ButtonLink>
+            <ButtonLink iconBoolean={true} className="min-w-[237px] px-[26.5px] py-[25px]" href="/">Подключить VPN</ButtonLink>
 
             <div className="h-[58px] w-px bg-[#191B20]" />
 

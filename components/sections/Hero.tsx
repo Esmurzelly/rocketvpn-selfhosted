@@ -11,6 +11,7 @@ const stats = [
 const pictureAlt: Record<HeroPicture, string> = {
   phone: "Приложение Rocket VPN на смартфоне",
   "phone-2": "Приложение Rocket VPN на смартфоне",
+  "phone-3": "Приложение Rocket VPN на смартфоне",
   laptop: "Приложение Rocket VPN на ноутбуке",
   "laptop-2": "Приложение Rocket VPN на ноутбуке",
   tv: "Приложение Rocket VPN на телевизоре",
@@ -65,7 +66,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
           <ButtonLink
             iconBoolean
             className="mx-auto mt-[24px] xl:mt-[34px] min-w-[203px] py-[20px] xl:mx-0 xl:px-[44px] xl:py-[25px]"
-            href="/tarif"
+            href="/"
           >
             Подключить бесплатно
           </ButtonLink>

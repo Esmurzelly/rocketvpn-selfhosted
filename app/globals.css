@@ -106,6 +106,10 @@
   background: linear-gradient(275.12deg, #0C0C0D -63.44%, #141618 136.53%);
 }
 
+@utility bg-test {
+  background: conic-gradient(from 180deg at 50% 50%, #FF4015 0deg, #FF4015 107.31deg, #0E0F10 360deg);
+}
+
 @utility bg-card-total {
   /* мобильная версия */
   background: linear-gradient(178.12deg, #0C0C0D 1.4%, #121417 73.53%, #33363E 178.31%);

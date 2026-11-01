@@ -11,7 +11,7 @@ type Props = {
 export default function CtaFinal({
   title = "Начните пользоваться Rocket VPN уже сегодня",
   text = "Подключите быстрый и стабильный VPN для всех нужных сервисов — без сложных настроек и лишних действий",
-  href = "/tarif",
+  href = "/",
   buttonLabel = "Подключить VPN",
 }: Props) {
   return (

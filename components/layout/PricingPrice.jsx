@@ -97,7 +97,7 @@ export default function PricingPlans() {
           Для новых пользователей <br /> 3 дня бесплатно
         </p>
         <Link
-          href="/trial"
+          href="/"
           className="mt-[40px] xl:w-[210px] text-center rounded-button bg-white py-[22px] xl:py-[26px] text-[12px] xl:text-[16px] text-black xl:mt-auto"
         >
           Попробовать за 0₽

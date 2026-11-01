@@ -30,14 +30,17 @@ const Whyus = (props: Props) => {
                         </p>
 
                         <div className="xl:relative xl:h-full xl:flex xl:flex-col">
-                            <span className="hidden xl:flex items-center gap-1 bg-transparent border border-[#1C1E24] absolute bg-button-orange rounded-button top-28 left-1/2 -translate-x-1/2 text-[14px] px-[6px] py-[3px] text-text-gray whitespace-nowrap">
+                            <span
+                                className="absolute left-1/2 top-24 hidden -translate-x-1/2 items-center gap-2 whitespace-nowrap rounded-button border border-[#1C1E24] bg-[#101113] px-[16px] py-[7px] text-[14px] text-text-gray xl:flex
+    after:absolute after:left-1/2 after:top-full after:-mt-[5px] after:size-[10px] after:-translate-x-1/2 after:rotate-45
+    after:border-b after:rounded-[2px] after:border-r after:border-[#1C1E24] after:bg-[#101113] after:content-['']"
+                            >
                                 Нидерланды
                                 <Image
                                     src="/icons/network.svg"
-                                    alt="Смартфон с приложениями ChatGPT, YouTube, Discord и Rocket VPN"
+                                    alt=""
                                     width={11}
                                     height={11}
-                                    sizes=""
                                     className="max-w-[11px]"
                                 />
                             </span>
@@ -73,7 +76,7 @@ const Whyus = (props: Props) => {
                                 alt="Спидометр и загрузка файла на высокой скорости"
                                 width={220}
                                 height={118}
-                                className="mx-auto h-auto w-full max-w-[300px] self-center xl:w-[420px]"
+                                className="mx-auto  h-auto w-full max-w-[300px] self-center xl:w-[420px]"
                             />
 
                             <div className="flex flex-row items-center gap-3 xl:mt-auto">
@@ -82,7 +85,7 @@ const Whyus = (props: Props) => {
                                     alt=""
                                     width={32}
                                     height={32}
-                                    className="h-auto w-full max-w-[32px] self-center xl:max-w-[42px]"
+                                    className="h-auto w-full max-w-[32px] self-end xl:max-w-[42px]"
                                 />
 
                                 <div className="mt-[30px] xl:mt-[0px] flex w-full flex-col items-start gap-[3px]">
