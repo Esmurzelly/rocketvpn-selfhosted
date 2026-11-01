@@ -53,8 +53,8 @@ const Whyus = (props: Props) => {
 
                     </article>
 
-                    <article className={`${card} flex flex-col gap-6 xl:p-[35px] xl:flex-row xl:items-center xl:justify-between`}>
-                        <div className="xl:max-w-[260px] h-full xl:flex xl:flex-col xl:items-start xl:justify-between">
+                    <article className={`${card} flex flex-col gap-6 xl:gap-20 xl:p-[35px] xl:flex-row xl:items-center xl:justify-between`}>
+                        <div className="xl:max-w-[260px] flex-1 h-full xl:flex xl:flex-col xl:items-start xl:justify-between">
                             <h3 className={title}>
                                 Стабильная скорость <br /> и никаких ограничений
                             </h3>
@@ -67,33 +67,34 @@ const Whyus = (props: Props) => {
                             </ul>
                         </div>
 
-                        <div className="pb-[23px] xl:pb-0">
+                        <div className="pb-[23px] xl:flex xl:flex-col xl:self-stretch xl:pb-0">
                             <Image
                                 src="/images/speed.png"
                                 alt="Спидометр и загрузка файла на высокой скорости"
                                 width={220}
                                 height={118}
-                                className="h-auto w-full mx-auto max-w-[220px] xl:w-[307px] self-center"
+                                className="mx-auto h-auto w-full max-w-[220px] self-center xl:w-[307px]"
                             />
-                            <div className="flex flex-row items-center gap-3">
+
+                            <div className="flex flex-row items-center gap-3 xl:mt-auto">
                                 <Image
                                     src="/icons/video-player.svg"
-                                    alt="Спидометр и загрузка файла на высокой скорости"
+                                    alt=""
                                     width={32}
                                     height={32}
-                                    className="h-auto w-full max-w-[32px] self-center"
+                                    className="h-auto w-full max-w-[32px] self-center xl:max-w-[42px]"
                                 />
 
-                                <div className="w-full flex flex-col items-start gap-[3px]">
-                                    <p className='text-[10px] leading-[135%] tracking-[-0.02em]'>Breaking Bad.mp4</p>
+                                <div className="flex w-full flex-col items-start gap-[3px]">
+                                    <p className="text-[10px] leading-[135%] tracking-[-0.02em] xl:text-[13px]">Breaking Bad.mp4</p>
 
-                                    <div className="w-full flex flex-row justify-between items-center">
-                                        <span className='text-[7px] text-text-gray leading-[135%] tracking-[-0.02em]'>2.64GB</span>
-                                        <span className='text-[7px] text-text-gray leading-[135%] tracking-[-0.02em]'>67.7%</span>
+                                    <div className="flex w-full flex-row items-center justify-between">
+                                        <span className="text-[7px] leading-[135%] tracking-[-0.02em] text-text-gray xl:text-[9px]">2.64GB</span>
+                                        <span className="text-[7px] leading-[135%] tracking-[-0.02em] text-text-gray xl:text-[9px]">67.7%</span>
                                     </div>
 
-                                    <div className="relative w-full h-[1.65px] bg-gray-200 rounded-[9px]">
-                                        <div className="absolute top-0 left-0 h-full w-2/3 bg-button-orange rounded-l-[9px]"></div>
+                                    <div className="relative h-[1.65px] w-full rounded-[9px] bg-gray-200">
+                                        <div className="absolute left-0 top-0 h-full w-2/3 rounded-l-[9px] bg-button-orange" />
                                     </div>
                                 </div>
                             </div>
