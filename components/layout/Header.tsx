@@ -65,9 +65,9 @@ export default function Header() {
               return (
                 <li
                   key={url}
-                  className={`relative flex w-1/3 cursor-pointer text-white/90 text-[10px] leading-[120%] tracking-[-0.05em] transition-colors
+                  className={`relative py-[13px] px-[18px] flex w-1/3 cursor-pointer text-white/90 text-[10px] leading-[120%] tracking-[-0.05em] transition-colors
             ${isActive
-                      ? "bg-bg-country-border py-[13px] px-[18px] rounded-button"
+                      ? "bg-bg-country-border rounded-button"
                       : "hover:text-white/100 duration-200"
                     }`}
                 >
