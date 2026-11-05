@@ -97,9 +97,13 @@
 
 @utility bg-card-gray {
   /* мобильная версия */
+  background: radial-gradient(199.48% 123.57% at 97.19% 122.93%, #0C0C0D 0%, #141618 100%);
+
+  /* @media (min-width: 1440px) {
   background: radial-gradient(199.48% 123.57% at 97.19% 122.93%,
       #0C0C0D 0%,
-      rgba(12, 12, 13, 0) 100%);
+      rgba(12, 12, 13, 0) 100%);  
+  } */
 }
 
 @utility bg-card-price-list {

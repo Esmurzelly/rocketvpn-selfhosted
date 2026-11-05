@@ -10,8 +10,8 @@ type Props = {
 };
 
 const links = [
-  { label: "Попробовать бесплатно", href: "/" },
-  { label: "Тарифный план", href: "/tarif" },
+  { label: "Попробовать бесплатно", href: "/#home" },
+  { label: "Тарифный план", href: "/#tarif" },
   { label: "Доступные регионы", href: "/#countries" },
 ];
 

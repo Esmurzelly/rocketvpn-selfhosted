@@ -10,9 +10,9 @@ const pill =
   "text-center px-4 py-[13.5px] bg-button-dark border-[0.5px] rounded-[55px] border-button-dark-border";
 
 const NAV_ITEMS = [
-  { title: "Попробовать бесплатно", url: "#home" },
-  { title: "Тарифный план", url: "#tarif" },
-  { title: "Доступные регионы", url: "#countries" },
+  { title: "Попробовать бесплатно", url: "/#home" },
+  { title: "Тарифный план", url: "/#tarif" },
+  { title: "Доступные регионы", url: "/#countries" },
 ];
 
 export default function Header() {
@@ -60,7 +60,8 @@ export default function Header() {
         <nav className="hidden xl:flex w-[472px] text-center">
           <ul className="flex flex-row items-center w-full bg-bg py-2 px-2 rounded-[55px]">
             {NAV_ITEMS.map(({ title, url }) => {
-              const isActive = activeSection === url.slice(1);
+              const sectionId = url.split("#")[1];
+              const isActive = activeSection === sectionId;
 
               return (
                 <li
@@ -71,7 +72,7 @@ export default function Header() {
                       : "hover:text-white/100 duration-200"
                     }`}
                 >
-                  {url === "#home" && (
+                  {url === "/#home" && (
                     <span className="absolute bg-button-orange rounded-button -top-1 left-9/10 -translate-x-1/2 text-[8px] px-[6px] py-[3px] text-white whitespace-nowrap">
                       Free
                     </span>

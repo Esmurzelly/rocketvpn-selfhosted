@@ -10,7 +10,7 @@ export default function PricingPlans() {
   const [activeId, setActiveId] = useState("3m"); // на десктопе по умолчанию 3 месяца
 
   return (
-    <div className="flex flex-col bg-card-price-list mt-[18px] gap-4 xl:grid xl:grid-cols-[22%_minmax(0,1fr)_29%] xl:rounded-[40px] xl:border xl:border-bg-country-border  xl:p-4">
+    <div className="flex flex-col xl:bg-card-price-list mt-[18px] gap-4 xl:grid xl:grid-cols-[22%_minmax(0,1fr)_29%] xl:rounded-[40px] xl:border xl:border-bg-country-border  xl:p-4">
       {/* desktop */}
       <ul className="hidden xl:flex xl:flex-col xl:gap-3">
         {plans.map((p) => {
@@ -21,9 +21,8 @@ export default function PricingPlans() {
                 type="button"
                 onClick={() => setActiveId(p.id)}
                 aria-pressed={active}
-                className={`flex cursor-pointer w-full items-center justify-between rounded-[25px] border border-bg-country-border px-5 py-5 text-left text-[14px] xl:text-[18px] transition-colors ${
-                  active ? "bg-bg" : "bg-bg-button-tarif-gray"
-                }`}
+                className={`flex cursor-pointer w-full items-center justify-between rounded-[25px] border border-bg-country-border px-5 py-5 text-left text-[14px] xl:text-[18px] transition-colors ${active ? "bg-bg" : "bg-bg-button-tarif-gray"
+                  }`}
               >
                 <span>
                   <span className="block">{p.tabLabel}</span>
@@ -43,7 +42,7 @@ export default function PricingPlans() {
         {plans.map((p) => (
           <article
             key={p.id}
-            className={`flex flex-col min-w-[280px]
+            className={`flex flex-col min-w-[280px] bg-card-price-list
               max-xl:w-[88%] max-xl:shrink-0 max-xl:snap-start max-xl:rounded-card-choose-mobile
               max-xl:border max-xl:border-bg-country-border max-xl:p-5
               xl:h-full xl:px-6 xl:py-4

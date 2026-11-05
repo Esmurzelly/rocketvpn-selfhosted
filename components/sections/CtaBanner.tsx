@@ -1,5 +1,5 @@
-import Image from 'next/image'
-import ButtonLink from '../ui/ButtonLink';
+import Image from "next/image";
+import ButtonLink from "../ui/ButtonLink";
 
 const features = [
   "Поддержка всех операционных систем: Windows, MacOS, Android, iOS, Android TV и другие",
@@ -9,19 +9,19 @@ const features = [
 
 const CtaBanner = () => {
   return (
-    <section className="mt-[64px] px-[16px] xl:mx-auto xl:w-[1240px] xl:px-0">
-      <div className="flex flex-col items-center overflow-hidden rounded-[30px] xl:rounded-[60px] bg-card-total border border-bg-country-border pt-[30px] xl:min-h-[744px] xl:flex-row xl:pt-0">
-        {/* text: desktop right */}
-        <div className="px-[30px] xl:w-[42%] xl:self-center xl:px-0 xl:py-[56px] xl:pr-[40px]">
-          <h2 className="w-full text-left text-[26px] leading-[120%] tracking-[-0.05em] xl:w-[405px] xl:text-[56px]">
+    <section className="scroll-mt-28 mt-[64px] px-[16px] xl:mx-auto xl:w-[1240px] xl:px-0">
+      <div className="flex flex-col items-center overflow-hidden rounded-[30px] border border-bg-country-border bg-card-total pt-[30px] md:pt-[50px] xl:min-h-[744px] xl:flex-row xl:rounded-[60px] xl:pt-0">
+        {/* текст: на десктопе справа */}
+        <div className="w-full px-[30px] md:max-w-[640px] xl:w-[42%] xl:max-w-none xl:self-center xl:px-0 xl:py-[56px] xl:pr-[40px]">
+          <h2 className="w-full text-left text-[26px] leading-[120%] tracking-[-0.05em] md:text-[40px] xl:w-[405px] xl:text-[56px]">
             Одна подписка на всех ваших устройствах
           </h2>
 
-          <ul className="mt-[25px] flex flex-col items-start gap-[24px] text-left xl:ml-[30px] xl:w-[365px]">
+          <ul className="mt-[25px] flex flex-col items-start gap-[24px] text-left md:mt-[32px] xl:ml-[30px] xl:w-[365px]">
             {features.map((text) => (
               <li
                 key={text}
-                className="ml-[10px] text-[13px] xl:relative xl:text-[17px] xl:leading-[140%]
+                className="ml-[10px] text-[13px] md:text-[16px] xl:relative xl:text-[17px] xl:leading-[140%]
                   before:-ml-[18px] before:-mt-[4px] before:block before:size-4.5
                   before:bg-[url('/icons/arrow-down.svg')] before:bg-contain before:bg-center before:bg-no-repeat before:content-['']
                   xl:before:absolute xl:before:-left-[26px] xl:before:-top-[10px] xl:before:m-0 xl:before:size-6"
@@ -31,8 +31,10 @@ const CtaBanner = () => {
             ))}
           </ul>
 
-          <div className="hidden mt-[40px] items-center gap-[20px] xl:flex">
-            <ButtonLink iconBoolean={true} className="min-w-[237px] px-[26.5px] py-[25px]" href="/">Подключить VPN</ButtonLink>
+          <div className="mt-[40px] hidden items-center gap-[20px] xl:flex">
+            <ButtonLink iconBoolean={true} className="min-w-[237px] px-[26.5px] py-[25px]" href="/">
+              Подключить VPN
+            </ButtonLink>
 
             <div className="h-[58px] w-px bg-[#191B20]" />
 
@@ -45,15 +47,15 @@ const CtaBanner = () => {
           </div>
         </div>
 
-        {/* laptop + R: desktop left */}
+        {/* ноутбук + R: на десктопе слева */}
         <div
-          className="relative mx-auto mt-[37px] w-full
-    before:pointer-events-none before:absolute before:opacity-15 before:z-0 before:aspect-square before:content-['']
-    before:-right-[46%] before:top-[3%] before:w-[175%]
-    before:bg-[url('/images/latter-r.png')] before:bg-contain before:bg-no-repeat
-    xl:order-first xl:mx-0 xl:mt-0 xl:w-[58%] xl:self-stretch
-    xl:before:left-[5%] xl:before:right-auto xl:before:top-[8%] xl:before:aspect-auto
-    xl:before:h-[92%] xl:before:w-[96%] xl:before:bg-left-bottom"
+          className="relative mx-auto mt-[37px] w-full max-w-[420px] overflow-hidden md:max-w-[480px]
+            before:pointer-events-none before:absolute before:z-0 before:aspect-square before:opacity-15 before:content-['']
+            before:-right-[46%] before:top-[3%] before:w-[175%]
+            before:bg-[url('/images/latter-r.png')] before:bg-contain before:bg-no-repeat
+            xl:order-first xl:mx-0 xl:mt-0 xl:w-[58%] xl:max-w-none xl:self-stretch xl:overflow-visible
+            xl:before:left-[5%] xl:before:right-auto xl:before:top-[8%] xl:before:aspect-auto
+            xl:before:h-[92%] xl:before:w-[96%] xl:before:bg-left-bottom"
         >
           <Image
             src="/images/laptop-with-phone.png"
@@ -61,12 +63,12 @@ const CtaBanner = () => {
             width={257}
             height={328}
             className="relative left-[2%] top-[3%] z-10 h-auto w-full min-w-[257px]
-      xl:absolute xl:left-[6%] xl:top-[2%] xl:w-[566px] xl:min-w-0 xl:max-w-none"
+              xl:absolute xl:left-[6%] xl:top-[2%] xl:w-[566px] xl:min-w-0 xl:max-w-none"
           />
         </div>
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default CtaBanner
+export default CtaBanner;
