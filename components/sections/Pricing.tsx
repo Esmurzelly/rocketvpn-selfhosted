@@ -37,7 +37,7 @@ export default function Pricing() {
 
           <article className={`${card} min-h-[320px] xl:min-h-[320px] bg-card-price-list`}>
             <h3 className="text-[16px] leading-[120%] xl:text-[20px]">Рекомендуй Rocket VPN</h3>
-            <p className="mt-3 text-[14px] xl:text-[16px] leading-[140%] text-text-gray xl:max-w-full">
+            <p className="mt-3 text-[14px] xl:text-[16px] leading-[140%] text-text-gray xl:max-w-full z-10">
               Получай 190 ₽ за каждого друга,
               который оплатил подписку. Используй баланс для оплаты своей подписки
             </p>
