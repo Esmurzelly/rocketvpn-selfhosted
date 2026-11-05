@@ -31,7 +31,7 @@ const items = [
 
 const Countries = (props: Props) => {
     return (
-        <section id="countries" className="flex flex-col items-center px-[16px] xl:px-0 xl:w-[1180px] xl:mx-auto mt-[64px]">
+        <section id="countries" className="scroll-mt-28 flex flex-col items-center px-[16px] xl:px-0 xl:w-[1180px] xl:mx-auto mt-[64px]">
             <h2 className="text-[26px] xl:text-[56px] leading-[120%] tracking-[-0.05em] text-center xl:text-left w-full">Доступные страны</h2>
 
             <div className="no-scrollbar -mx-4 mt-[25px] self-stretch overflow-x-auto overflow-y-hidden px-4 xl:mx-0 xl:overflow-visible xl:px-0">

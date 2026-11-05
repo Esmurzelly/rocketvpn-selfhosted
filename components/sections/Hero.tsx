@@ -48,7 +48,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
   });
 
   return (
-    <section className="rounded-b-[30px] xl:rounded-b-[60px] bg-card-total w-full">
+    <section id="home" className="scroll-mt-28 rounded-b-[30px] xl:rounded-b-[60px] bg-card-total w-full">
       <div
         className="mx-auto flex max-w-[1180px] flex-col items-center gap-2 pb-[39px] xl:pb-[0px] pt-[90px] text-center
           xl:grid xl:grid-cols-[342px_minmax(0,1fr)_290px] xl:items-center xl:gap-x-6
