@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import MobileMenu from "./MobileMenu";
 import Logo from "../ui/Logo";
 
@@ -16,6 +17,7 @@ const NAV_ITEMS = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
   const [activeSection, setActiveSection] = useState("home");
   const [showModal, setShowModal] = useState(false);
 
@@ -32,25 +34,69 @@ export default function Header() {
 
 
   useEffect(() => {
-    const sections = document.querySelectorAll("section[id]");
+    // Отслеживаем секции только на главной странице
+    if (pathname !== "/") {
+      setActiveSection("home");
+      return;
+    }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        threshold: 0.5,
+    const sections = NAV_ITEMS.map(({ url }) =>
+      document.getElementById(url.split("#")[1])
+    ).filter((section): section is HTMLElement => section !== null);
+
+    if (!sections.length) return;
+
+    const updateActiveSection = () => {
+      const activationLine = window.innerHeight * 0.35;
+
+      // Если пользователь дошёл до конца страницы
+      const isAtBottom =
+        window.innerHeight + window.scrollY >=
+        document.documentElement.scrollHeight - 5;
+
+      if (isAtBottom) {
+        setActiveSection("tarif");
+        return;
       }
-    );
 
-    sections.forEach((section) => observer.observe(section));
+      let currentSection = sections[0];
 
-    return () => observer.disconnect();
-  }, []);
+      for (const section of sections) {
+        const rect = section.getBoundingClientRect();
+
+        if (rect.top <= activationLine) {
+          currentSection = section;
+        }
+
+        if (
+          rect.top <= activationLine &&
+          rect.bottom > activationLine
+        ) {
+          currentSection = section;
+          break;
+        }
+      }
+
+      setActiveSection(currentSection.id);
+    };
+
+    // Определяем активную секцию сразу после перехода
+    updateActiveSection();
+
+    window.addEventListener("scroll", updateActiveSection, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", updateActiveSection);
+
+    window.addEventListener("hashchange", updateActiveSection);
+
+    return () => {
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
+      window.removeEventListener("hashchange", updateActiveSection);
+    };
+  }, [pathname]);
 
   return (
     <header className="w-full fixed inset-x-0 top-0 z-50 text-[14px]">
@@ -66,9 +112,9 @@ export default function Header() {
               return (
                 <li
                   key={url}
-                  className={`relative py-[13px] px-[18px] flex w-1/3 cursor-pointer text-white/90 text-[10px] leading-[120%] tracking-[-0.05em] transition-colors
+                  className={`relative rounded-button py-[13px] px-[18px] flex w-1/3 cursor-pointer text-white/90 text-[10px] leading-[120%] tracking-[-0.05em] transition-colors
             ${isActive
-                      ? "bg-bg-country-border rounded-button"
+                      ? "bg-bg-country-border"
                       : "hover:text-white/100 duration-200"
                     }`}
                 >
