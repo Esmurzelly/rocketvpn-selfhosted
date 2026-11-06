@@ -11,12 +11,12 @@ type Props = {
 const Logo = ({ className="" }: Props) => {
     return (
         <Link
-            href="/"
+            href="/#home"
             aria-label="Rocket VPN — главная"
             className={`${pill} flex min-w-[127px] items-center gap-1 xl:px-[27px] xl:py-[11px] ${className}`}
         >
             <Image src="/icons/logo.svg" alt="logo" width={18} height={18} className="xl:w-[24px]" />
-            <span className="text-[14px] xl:text-[17px] font-medium">RocketVPN</span>
+            <span className="text-[14px] xl:text-[17px] font-medium">Rocket VPN</span>
         </Link>
     )
 }
