@@ -21,3 +21,9 @@ export const devices = [
   { label: "Android / Google TV", icon: "/icons/monitor.svg" },
   { label: "Windows", icon: "/icons/win.svg" },
 ];
+
+export const NAV_ITEMS = [
+  { title: "Попробовать бесплатно", url: "/#home" },
+  { title: "Тарифный план", url: "/#tarif" },
+  { title: "Доступные регионы", url: "/#countries" },
+];

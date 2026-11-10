@@ -3,28 +3,25 @@
 import Image from "next/image";
 import Link from "next/link";
 import { legalLinks } from "@/content/footer";
+import { useAnchorClick } from "@/lib/useAnchorClick";
+import { NAV_ITEMS } from "@/content/tariffs";
 
 type Props = {
   showModal: boolean;
   setShowModal: (value: boolean) => void;
 };
 
-const links = [
-  { label: "Попробовать бесплатно", href: "/#home" },
-  { label: "Тарифный план", href: "/#tarif" },
-  { label: "Доступные регионы", href: "/#countries" },
-];
-
 const MobileMenu = ({ showModal, setShowModal }: Props) => {
   const close = () => setShowModal(false);
+
+  const onAnchorClick = useAnchorClick(() => setShowModal(false));
 
   return (
     <div
       id="mobile-menu"
       inert={!showModal}
-      className={`fixed inset-0 z-[70] transition-[opacity,visibility] duration-300 xl:hidden ${
-        showModal ? "visible opacity-100" : "invisible opacity-0"
-      }`}
+      className={`fixed inset-0 z-[70] transition-[opacity,visibility] duration-300 xl:hidden ${showModal ? "visible opacity-100" : "invisible opacity-0"
+        }`}
     >
       <div
         aria-hidden="true"
@@ -33,9 +30,8 @@ const MobileMenu = ({ showModal, setShowModal }: Props) => {
       />
 
       <div
-        className={`absolute border-l border-white/10 inset-y-0 right-0 w-[75%] max-w-[340px] transition-transform duration-300 ease-out ${
-          showModal ? "translate-x-0" : "translate-x-[110%]"
-        }`}
+        className={`absolute border-l border-white/10 inset-y-0 right-0 w-[75%] max-w-[340px] transition-transform duration-300 ease-out ${showModal ? "translate-x-0" : "translate-x-[110%]"
+          }`}
       >
         <button
           type="button"
@@ -60,14 +56,14 @@ const MobileMenu = ({ showModal, setShowModal }: Props) => {
 
           <nav aria-label="Мобильное меню" className="mt-[56px]">
             <ul className="flex flex-col">
-              {links.map((l) => (
-                <li key={l.label}>
+              {NAV_ITEMS.map((l) => (
+                <li key={l.title}>
                   <Link
-                    href={l.href}
-                    onClick={close}
+                    href={l.url}
+                    onClick={(e) => onAnchorClick(e, l.url)}
                     className="block py-3 text-[13px] leading-[140%] tracking-[-0.03em] transition-colors active:text-button-orange"
                   >
-                    {l.label}
+                    {l.title}
                   </Link>
                 </li>
               ))}

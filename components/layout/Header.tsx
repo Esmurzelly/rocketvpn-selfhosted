@@ -5,19 +5,17 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import Logo from "../ui/Logo";
+import { useAnchorClick } from "@/lib/useAnchorClick";
+import { NAV_ITEMS } from "@/content/tariffs"
 
 const pill =
   "text-center px-4 py-[13.5px] bg-button-dark border-[0.5px] rounded-[55px] border-button-dark-border";
 
-const NAV_ITEMS = [
-  { title: "Попробовать бесплатно", url: "/#home" },
-  { title: "Тарифный план", url: "/#tarif" },
-  { title: "Доступные регионы", url: "/#countries" },
-];
-
 export default function Header() {
   const [activeSection, setActiveSection] = useState("home");
   const [showModal, setShowModal] = useState(false);
+
+  const onAnchorClick = useAnchorClick(() => setShowModal(false));
 
   useEffect(() => {
     document.body.classList.toggle("overflow-hidden", showModal);
@@ -41,7 +39,7 @@ export default function Header() {
               <li key={url} className="flex w-1/3">
                 <Link
                   href={url}
-                  onClick={() => setShowModal(false)}
+                  onClick={(e) => onAnchorClick(e, url)}
                   className="relative flex items-center justify-center w-full rounded-button py-[13px] px-[18px] cursor-pointer text-white/90 text-[10px] leading-[120%] tracking-[-0.05em] transition-colors duration-200 hover:bg-bg-country-border hover:text-white focus-visible:bg-bg-country-border"
                 >
                   {url === "/#home" && (
