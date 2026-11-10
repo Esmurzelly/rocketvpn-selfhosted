@@ -11,7 +11,7 @@ import FormattedText from "@/components/ui/FormattedText";
 
 type Props = { params: Promise<{ slug: string }> };
 
-const ownPages = ["home", "vpn", "tarif", "support", "contacts", "blog", "about", "aboutvpn", "proxy", "conditions", "policy", "cookies"];
+const ownPages = ["home", "vpn", "tarif", "support", "contacts", "blog", "about", "aboutvpn", "proxy", "conditions", "policy", "cookies", "admin"];
 const slugs = Object.keys(seo).filter((key) => !ownPages.includes(key));
 
 export const dynamicParams = false;
