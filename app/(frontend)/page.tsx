@@ -10,6 +10,8 @@ import { getPage, toFaqItems } from "@/lib/pages";
 import { buildMetadata } from "@/lib/seo";
 import NotFound from "./not-found";
 
+export const dynamic = "force-dynamic";
+
 
 export async function generateMetadata() {
   return buildMetadata("home");
