@@ -174,6 +174,7 @@ export interface Page {
    * Только латиница, цифры и дефис: telegram, dota2, tarif. Главная страница: home
    */
   slug: string;
+  template: 'landing' | 'text' | 'document';
   h1: string;
   heroText?: string | null;
   heroPicture?: ('phone' | 'phone-2' | 'phone-3' | 'laptop' | 'laptop-2' | 'tv') | null;
@@ -361,6 +362,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface PagesSelect<T extends boolean = true> {
   slug?: T;
+  template?: T;
   h1?: T;
   heroText?: T;
   heroPicture?: T;

@@ -1,4 +1,7 @@
-import type { FaqItem } from "@/content/faq";
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
 
 type Props = {
   items: FaqItem[];

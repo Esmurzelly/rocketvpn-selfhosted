@@ -6,24 +6,27 @@ import Hero from "@/components/sections/Hero";
 import Pricing from "@/components/sections/Pricing";
 import Whyus from "@/components/sections/Whyus";
 import JsonLd from "@/components/seo/JsonLd";
-import { homeFaq } from "@/content/faq";
+import { getPage, toFaqItems } from "@/lib/pages";
 import { buildMetadata } from "@/lib/seo";
+import NotFound from "./not-found";
 
-// export const metadata = buildMetadata("home");
 
 export async function generateMetadata() {
   return buildMetadata("home");
 }
 
-export default function Home() {
+export default async function Home() {
+  const page = await getPage("home");
+  if (!page) NotFound();
+
   return (
     <main>
-      <Hero h1_string="Быстрый VPN для свободного доступа в интернет" description="Rocket VPN для свободного и безопасного доступа в интернет. Высокая скорость, стабильные серверы, поддержка Windows, Android, iPhone, macOS и Android TV." />
+      <Hero h1_string={page?.h1} description={page?.heroText ?? undefined} ctaHref={page?.ctaUrl || undefined} />
       <Whyus />
       <Countries />
       <CtaBanner />
       <Pricing />
-      <Faq title="Ответы на вопросы" items={homeFaq} defaultOpenFirst={true} groupName="faq-home" />
+      <Faq items={toFaqItems(page?.faq)} defaultOpenFirst groupName="faq-home" />
       <CtaFinal />
 
       <JsonLd

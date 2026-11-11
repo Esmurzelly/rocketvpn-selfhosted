@@ -3,7 +3,11 @@ import { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Page } from "@/payload-types";
-import type { FaqItem } from "@/content/faq";
+
+export type FaqItem = {
+  question: string;
+  answer: string;
+};
 
 // cache не даёт читать одну страницу из базы дважды за один запрос
 export const getPage = cache(async (slug: string): Promise<Page | null> => {

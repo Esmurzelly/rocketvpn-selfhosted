@@ -3,8 +3,6 @@ import Link from "next/link";
 import { posts } from "@/content/blog";
 import { buildMetadata } from "@/lib/seo";
 
-// export const metadata = buildMetadata("blog");
-
 export async function generateMetadata() {
   return buildMetadata("blog");
 }

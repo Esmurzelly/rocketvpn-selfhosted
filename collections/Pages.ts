@@ -1,11 +1,14 @@
 import type { CollectionConfig } from "payload";
 
+// адреса, которые заняты самим сайтом или админкой
+const RESERVED_SLUGS = ["admin", "api", "dev-import", "dev-import-text"];
+
 export const Pages: CollectionConfig = {
   slug: "pages",
   labels: { singular: "Страница", plural: "Страницы" },
   admin: {
     useAsTitle: "h1",
-    defaultColumns: ["h1", "slug", "updatedAt"],
+    defaultColumns: ["h1", "slug", "template", "updatedAt"],
   },
   access: { read: () => true },
   fields: [
@@ -20,8 +23,28 @@ export const Pages: CollectionConfig = {
         position: "sidebar",
         description: "Только латиница, цифры и дефис: telegram, dota2, tarif. Главная страница: home",
       },
-      validate: (value?: string | null) =>
-        /^[a-z0-9-]+$/.test(value ?? "") || "Допустимы только строчные латинские буквы, цифры и дефис",
+      validate: (value?: string | null) => {
+        if (!/^[a-z0-9-]+$/.test(value ?? "")) {
+          return "Допустимы только строчные латинские буквы, цифры и дефис";
+        }
+        if (RESERVED_SLUGS.includes(value as string)) {
+          return "Этот адрес зарезервирован, выберите другой";
+        }
+        return true;
+      },
+    },
+    {
+      name: "template",
+      type: "select",
+      label: "Вид страницы",
+      defaultValue: "landing",
+      required: true,
+      admin: { position: "sidebar" },
+      options: [
+        { label: "С верхним блоком (лендинг)", value: "landing" },
+        { label: "Текстовая страница (по центру)", value: "text" },
+        { label: "Документ (текст слева)", value: "document" },
+      ],
     },
     { name: "h1", type: "text", label: "Заголовок H1", required: true },
     {
