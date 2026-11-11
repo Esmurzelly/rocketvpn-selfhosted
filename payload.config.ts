@@ -6,12 +6,13 @@ import { postgresAdapter } from "@payloadcms/db-postgres";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
+import { Pages } from "./collections/Pages";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default buildConfig({
     admin: { user: Users.slug },
-    collections: [Users, Media],
+    collections: [Users, Media, Pages],
     editor: lexicalEditor(),
     secret: process.env.PAYLOAD_SECRET || "",
     db: postgresAdapter({
