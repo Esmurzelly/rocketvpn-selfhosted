@@ -4,7 +4,7 @@ import { buildMetadata } from "@/lib/seo";
 import Hero from "@/components/sections/Hero";
 import Faq from "@/components/sections/Faq";
 import CtaFinal from "@/components/sections/CtaFinal";
-import { getPage, toFaqItems } from "@/lib/pages";
+import { getPage, getPageView, toFaqItems } from "@/lib/pages";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import TextPage from "@/components/sections/TextPage";
 
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function Page({ params }: Props) {
   const { slug } = await params;
-  const page = await getPage(slug);
+  const page = await getPageView(slug);
   if (!page) notFound();
 
   const faq = toFaqItems(page.faq);
@@ -51,7 +51,7 @@ export default async function Page({ params }: Props) {
 
 
       {faq.length > 0 && <Faq items={faq} groupName={`faq-${slug}`} />}
-      <CtaFinal />
+      <CtaFinal href={page.ctaUrl || undefined} />
     </main>
   );
 }

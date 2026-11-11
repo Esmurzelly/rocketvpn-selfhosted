@@ -9,9 +9,10 @@ import { NAV_ITEMS } from "@/content/tariffs";
 type Props = {
   showModal: boolean;
   setShowModal: (value: boolean) => void;
+  loginUrl?: string
 };
 
-const MobileMenu = ({ showModal, setShowModal }: Props) => {
+const MobileMenu = ({ showModal, setShowModal, loginUrl }: Props) => {
   const close = () => setShowModal(false);
 
   const onAnchorClick = useAnchorClick(() => setShowModal(false));
@@ -46,7 +47,7 @@ const MobileMenu = ({ showModal, setShowModal }: Props) => {
 
         <div className="flex h-full flex-col overflow-y-auto border border-bg-country-border bg-[linear-gradient(160deg,#191B1E_0%,#101113_100%)] px-[20px] pb-8 pt-[20px] text-right">
           <Link
-            href="/"
+            href={loginUrl || ""}
             onClick={close}
             className="flex min-h-11 items-center gap-1.5 self-end rounded-[55px] border-[0.5px] border-button-dark-border bg-button-dark px-[26px] py-[13.5px] text-[14px]"
           >

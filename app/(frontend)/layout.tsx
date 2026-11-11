@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import { getSettings } from "@/lib/site-data";
+
+export const dynamic = "force-dynamic";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -21,7 +24,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const settings = await getSettings();
+
   return (
     <html
       lang="ru"
@@ -29,7 +34,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
 
       <body className="min-h-full flex flex-col overflow-x-hidden">
-        <Header />
+        <Header loginUrl={settings.loginUrl} />
         <div className="flex-1">{children}</div>
         <Footer />
       </body>

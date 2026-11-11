@@ -2,7 +2,7 @@ import CtaFinal from '@/components/sections/CtaFinal'
 import Faq from '@/components/sections/Faq'
 import Hero from '@/components/sections/Hero'
 import ServicesGrid from '@/components/sections/ServicesGrid'
-import { getPage, toFaqItems } from '@/lib/pages'
+import { getPage, getPageView, toFaqItems } from '@/lib/pages'
 import { buildMetadata } from '@/lib/seo'
 import NotFound from '../not-found'
 
@@ -15,12 +15,12 @@ export async function generateMetadata() {
 }
 
 const page = async (props: Props) => {
-  const page = await getPage("vpn");
+  const page = await getPageView("vpn");
   if (!page) NotFound();
 
   return (
     <main>
-      <Hero h1_string={page?.h1} description={page?.heroText ?? undefined} ctaHref={page?.ctaUrl || undefined} />
+      <Hero h1_string={page?.h1} picture={page?.heroPicture ?? "phone"} description={page?.heroText ?? undefined} ctaHref={page?.ctaUrl || undefined} />
       <ServicesGrid />
       <Faq items={toFaqItems(page?.faq)} defaultOpenFirst groupName="faq-vpn" />
       <CtaFinal />

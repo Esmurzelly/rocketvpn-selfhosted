@@ -7,6 +7,8 @@ import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { Users } from "./collections/Users";
 import { Media } from "./collections/Media";
 import { Pages } from "./collections/Pages";
+import { Tariffs } from "./globals/Tariffs";
+import { SiteSettings } from "./globals/SiteSettings";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -20,4 +22,5 @@ export default buildConfig({
     }),
     typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
     sharp,
+    globals: [Tariffs, SiteSettings]
 });

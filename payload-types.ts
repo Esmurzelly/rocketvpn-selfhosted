@@ -89,8 +89,14 @@ export interface Config {
     defaultIDType: number;
   };
   fallbackLocale: null;
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    tariffs: Tariff;
+    'site-settings': SiteSetting;
+  };
+  globalsSelect: {
+    tariffs: TariffsSelect<false> | TariffsSelect<true>;
+    'site-settings': SiteSettingsSelect<false> | SiteSettingsSelect<true>;
+  };
   locale: null;
   widgets: {
     collections: CollectionsWidget;
@@ -433,6 +439,126 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tariffs".
+ */
+export interface Tariff {
+  id: number;
+  plan1m: {
+    price: number;
+    /**
+     * Разница со старой ценой показывается на сайте как «Выгода»
+     */
+    oldPrice: number;
+    /**
+     * Если пусто, используется ссылка из раздела «Ссылки кнопок»
+     */
+    payUrl?: string | null;
+  };
+  plan3m: {
+    price: number;
+    /**
+     * Разница со старой ценой показывается на сайте как «Выгода»
+     */
+    oldPrice: number;
+    /**
+     * Если пусто, используется ссылка из раздела «Ссылки кнопок»
+     */
+    payUrl?: string | null;
+  };
+  plan6m: {
+    price: number;
+    /**
+     * Разница со старой ценой показывается на сайте как «Выгода»
+     */
+    oldPrice: number;
+    /**
+     * Если пусто, используется ссылка из раздела «Ссылки кнопок»
+     */
+    payUrl?: string | null;
+  };
+  plan12m: {
+    price: number;
+    /**
+     * Разница со старой ценой показывается на сайте как «Выгода»
+     */
+    oldPrice: number;
+    /**
+     * Если пусто, используется ссылка из раздела «Ссылки кнопок»
+     */
+    payUrl?: string | null;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings".
+ */
+export interface SiteSetting {
+  id: number;
+  /**
+   * Куда ведут оранжевые кнопки на всём сайте. Для отдельной страницы можно задать свою ссылку в самой странице
+   */
+  ctaUrl: string;
+  /**
+   * Если пусто, используется ссылка основной кнопки
+   */
+  trialUrl?: string | null;
+  loginUrl?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tariffs_select".
+ */
+export interface TariffsSelect<T extends boolean = true> {
+  plan1m?:
+    | T
+    | {
+        price?: T;
+        oldPrice?: T;
+        payUrl?: T;
+      };
+  plan3m?:
+    | T
+    | {
+        price?: T;
+        oldPrice?: T;
+        payUrl?: T;
+      };
+  plan6m?:
+    | T
+    | {
+        price?: T;
+        oldPrice?: T;
+        payUrl?: T;
+      };
+  plan12m?:
+    | T
+    | {
+        price?: T;
+        oldPrice?: T;
+        payUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "site-settings_select".
+ */
+export interface SiteSettingsSelect<T extends boolean = true> {
+  ctaUrl?: T;
+  trialUrl?: T;
+  loginUrl?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

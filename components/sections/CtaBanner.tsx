@@ -1,5 +1,6 @@
 import Image from "next/image";
 import ButtonLink from "../ui/ButtonLink";
+import { getSettings } from "@/lib/site-data";
 
 const features = [
   "Поддержка всех операционных систем: Windows, MacOS, Android, iOS, Android TV и другие",
@@ -7,7 +8,9 @@ const features = [
   "Пошаговые инструкции по подключению VPN на все устройства",
 ];
 
-const CtaBanner = () => {
+const CtaBanner = async () => {
+  const settings = await getSettings();
+
   return (
     <section className="scroll-mt-28 mt-[64px] px-[16px] xl:mx-auto xl:w-[1240px] xl:px-0">
       <div className="flex flex-col items-center overflow-hidden rounded-[30px] border border-bg-country-border bg-card-total pt-[30px] md:pt-[50px] xl:min-h-[744px] xl:flex-row xl:rounded-[60px] xl:pt-0">
@@ -32,7 +35,7 @@ const CtaBanner = () => {
           </ul>
 
           <div className="mt-[40px] hidden items-center gap-[20px] xl:flex">
-            <ButtonLink iconBoolean={true} className="min-w-[237px] px-[26.5px] py-[25px]" href="/">
+            <ButtonLink iconBoolean={true} className="min-w-[237px] px-[26.5px] py-[25px]" href={settings.ctaUrl}>
               Подключить VPN
             </ButtonLink>
 

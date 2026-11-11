@@ -1,11 +1,14 @@
 import Image from "next/image";
-import PricingPlans from "@/components/layout/PricingPrice"
+import PricingPlans from "../layout/PricingPrice";
+import { getPlans, getSettings } from "@/lib/site-data";
 
 const card =
   "relative flex flex-col overflow-hidden border border-bg-country-border bg-card-gray p-5 xl:p-[35px] " +
   "rounded-[30px] xl:rounded-[35px] xl:p-6 xl:w-full";
 
-export default function Pricing() {
+export default async function Pricing() {
+  const [plans, settings] = await Promise.all([getPlans(), getSettings()]);
+
   return (
     <section id="tarif" className="scroll-mt-28 mt-[64px] xl:mt-[75px] px-[16px] xl:mx-auto xl:w-[1240px] xl:px-[30px]">
       <h2 className="mx-auto w-[260px] xl:w-auto text-center text-[25px] leading-[120%] tracking-[-0.05em] xl:mx-0 xl:text-left xl:text-[46px]">
@@ -13,8 +16,9 @@ export default function Pricing() {
       </h2>
 
       <div className="mt-6 xl:mt-10">
-        <PricingPlans />
-
+        {/* <PricingPlans /> */}
+        <PricingPlans plans={plans} trialUrl={settings.trialUrl} />
+        
         <div className="mt-8 xl:mt-5 grid gap-4 xl:flex xl:flex-row xl:justify-between xl:items-center xl:gap-[20px]">
           <article
             className={`${card} bg-card-price-list isolate min-h-[288px] xl:min-h-[320px] 

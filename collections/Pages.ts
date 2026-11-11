@@ -52,6 +52,7 @@ export const Pages: CollectionConfig = {
       tabs: [
         {
           label: "Контент",
+          admin: { description: "Цены подставляются кодами: {{3m.price}}, {{3m.month}}, {{3m.old}}, {{3m.benefit}}. Вместо 3m можно 1m, 6m, 12m" },
           fields: [
             {
               name: "heroText",
@@ -83,6 +84,7 @@ export const Pages: CollectionConfig = {
         },
         {
           label: "FAQ",
+          admin: { description: "Цены подставляются кодами: {{3m.price}}, {{3m.month}}, {{3m.old}}, {{3m.benefit}}. Вместо 3m можно 1m, 6m, 12m" },
           fields: [
             {
               name: "faq",

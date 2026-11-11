@@ -6,7 +6,7 @@ import Hero from "@/components/sections/Hero";
 import Pricing from "@/components/sections/Pricing";
 import Whyus from "@/components/sections/Whyus";
 import JsonLd from "@/components/seo/JsonLd";
-import { getPage, toFaqItems } from "@/lib/pages";
+import { getPage, getPageView, toFaqItems } from "@/lib/pages";
 import { buildMetadata } from "@/lib/seo";
 import NotFound from "./not-found";
 
@@ -18,12 +18,12 @@ export async function generateMetadata() {
 }
 
 export default async function Home() {
-  const page = await getPage("home");
+  const page = await getPageView("home");
   if (!page) NotFound();
 
   return (
     <main>
-      <Hero h1_string={page?.h1} description={page?.heroText ?? undefined} ctaHref={page?.ctaUrl || undefined} />
+      <Hero h1_string={page?.h1} picture={page?.heroPicture ?? "phone"} description={page?.heroText ?? undefined} ctaHref={page?.ctaUrl || undefined} />
       <Whyus />
       <Countries />
       <CtaBanner />

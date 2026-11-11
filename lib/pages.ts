@@ -3,6 +3,8 @@ import { cache } from "react";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import type { Page } from "@/payload-types";
+import { getPlans } from "@/lib/site-data";
+import { fillTokens, fillLexical } from "@/lib/tokens";
 
 export type FaqItem = {
   question: string;
@@ -23,4 +25,19 @@ export const getPage = cache(async (slug: string): Promise<Page | null> => {
 
 export function toFaqItems(faq: Page["faq"]): FaqItem[] {
   return (faq ?? []).map((f) => ({ question: f.question, answer: f.answer }));
+}
+
+export async function getPageView(slug: string) {
+  const [page, plans] = await Promise.all([getPage(slug), getPlans()]);
+  if (!page) return null;
+
+  return {
+    ...page,
+    faq: page.faq?.map((f) => ({
+      ...f,
+      question: fillTokens(f.question, plans),
+      answer: fillTokens(f.answer, plans),
+    })),
+    content: page.content ? fillLexical(page.content, plans) : page.content,
+  };
 }
