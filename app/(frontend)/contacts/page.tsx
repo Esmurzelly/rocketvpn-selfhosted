@@ -4,7 +4,11 @@ import { buildMetadata } from '@/lib/seo';
 
 type Props = {}
 
-export const metadata = buildMetadata("contacts");
+// export const metadata = buildMetadata("contacts");
+
+export async function generateMetadata() {
+  return buildMetadata("contacts");
+}
 
 const page = (props: Props) => {
   return (

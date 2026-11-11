@@ -1,12 +1,21 @@
 import Faq from '@/components/sections/Faq'
 import { aboutFaq } from '@/content/faq'
+import { getPage, toFaqItems } from '@/lib/pages';
 import { buildMetadata } from '@/lib/seo';
+import NotFound from '../not-found';
 
-export const metadata = buildMetadata("about");
+// export const metadata = buildMetadata("about");
+
+export async function generateMetadata() {
+  return buildMetadata("about");
+}
 
 type Props = {}
 
-const page = (props: Props) => {
+const page = async (props: Props) => {
+  const page = await getPage("about");
+  if (!page) NotFound();
+
   return (
     <main>
       <section className='pt-[100px] xl:pt-[160px] text-center px-[14px] pb-[40px] leading-[120%]'>
@@ -22,7 +31,7 @@ const page = (props: Props) => {
             <p className='text-[12px] xl:text-[18px] leading-[140%]'>Rocket VPN — это современный VPN-сервис, созданный для пользователей, которым важны свободный доступ к интернету, высокая скорость соединения и защита личных данных. Мы развиваем сервис с учетом современных требований к безопасности, стабильности подключения и удобству использования, чтобы VPN работал без сложных настроек и был доступен каждому.</p>
             <p className='text-[12px] xl:text-[18px] leading-[140%]'>Сегодня Rocket VPN используют десятки тысяч пользователей для работы, общения, просмотра видео, игр, обучения и доступа к современным онлайн-сервисам. Наши серверы расположены в более чем 25 странах мира, что позволяет подобрать оптимальный маршрут подключения и обеспечить комфортную скорость практически для любых повседневных задач.</p>
           </div>
-          
+
           <div className="space-y-[24px] xl:space-y-[30px]">
             <h2 className='text-[22px] xl:text-[32px]'>Устройства и безопасность</h2>
 
@@ -38,7 +47,9 @@ const page = (props: Props) => {
           </div>
         </div>
       </section>
-      <Faq title="Ответы на вопросы" items={aboutFaq} defaultOpenFirst={true} groupName="faq-about" />
+
+      <Faq items={toFaqItems(page?.faq)} groupName="faq-about" />
+      {/* <Faq title="Ответы на вопросы" items={aboutFaq} defaultOpenFirst={true} groupName="faq-about" /> */}
     </main>
   )
 }

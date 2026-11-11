@@ -2,7 +2,11 @@ import Faq from '@/components/sections/Faq'
 import { conditionsFaq } from '@/content/faq'
 import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata("conditions");
+// export const metadata = buildMetadata("conditions");
+
+export async function generateMetadata() {
+  return buildMetadata("conditions");
+}
 
 type Props = {}
 

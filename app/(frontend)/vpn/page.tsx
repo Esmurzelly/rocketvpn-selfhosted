@@ -7,7 +7,12 @@ import { buildMetadata } from '@/lib/seo'
 
 type Props = {}
 
-export const metadata = buildMetadata("vpn");
+// export const metadata = buildMetadata("vpn");
+
+export async function generateMetadata() {
+  return buildMetadata("vpn");
+}
+
 
 const page = (props: Props) => {
   return (

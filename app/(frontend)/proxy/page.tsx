@@ -2,7 +2,11 @@ import Faq from '@/components/sections/Faq'
 import { proxyFaq } from '@/content/faq'
 import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata("proxy");
+// export const metadata = buildMetadata("proxy");
+
+export async function generateMetadata() {
+  return buildMetadata("proxy");
+}
 
 type Props = {}
 

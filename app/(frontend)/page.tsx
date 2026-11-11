@@ -9,7 +9,11 @@ import JsonLd from "@/components/seo/JsonLd";
 import { homeFaq } from "@/content/faq";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata("home");
+// export const metadata = buildMetadata("home");
+
+export async function generateMetadata() {
+  return buildMetadata("home");
+}
 
 export default function Home() {
   return (

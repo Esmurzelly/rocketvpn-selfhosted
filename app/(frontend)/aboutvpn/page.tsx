@@ -2,7 +2,11 @@ import Faq from '@/components/sections/Faq'
 import { vpnProtocolsFaq } from '@/content/faq'
 import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata("aboutvpn");
+// export const metadata = buildMetadata("aboutvpn");
+
+export async function generateMetadata() {
+  return buildMetadata("aboutvpn");
+}
 
 type Props = {}
 

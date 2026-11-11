@@ -2,7 +2,11 @@ import Faq from '@/components/sections/Faq'
 import { cookiesFaq } from '@/content/faq'
 import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata("cookies");
+// export const metadata = buildMetadata("cookies");
+
+export async function generateMetadata() {
+  return buildMetadata("cookies");
+}
 
 type Props = {}
 

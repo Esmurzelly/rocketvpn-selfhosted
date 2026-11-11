@@ -2,7 +2,11 @@ import Faq from '@/components/sections/Faq'
 import { policyFaq } from '@/content/faq'
 import { buildMetadata } from '@/lib/seo';
 
-export const metadata = buildMetadata("policy");
+// export const metadata = buildMetadata("policy");
+
+export async function generateMetadata() {
+  return buildMetadata("policy");
+}
 
 type Props = {}
 

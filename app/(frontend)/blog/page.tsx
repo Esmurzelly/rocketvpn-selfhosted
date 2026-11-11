@@ -3,7 +3,11 @@ import Link from "next/link";
 import { posts } from "@/content/blog";
 import { buildMetadata } from "@/lib/seo";
 
-export const metadata = buildMetadata("blog");
+// export const metadata = buildMetadata("blog");
+
+export async function generateMetadata() {
+  return buildMetadata("blog");
+}
 
 const title = "Блог Rocket VPN — новости, инструкции и полезные статьи о VPN";
 const description =

@@ -22,10 +22,11 @@ type Props = {
   h1_string?: string;
   description?: string;
   picture?: HeroPicture;
+  ctaHref?: string | undefined;
 };
 
 
-export default function Hero({ picture = "phone", h1_string = `${'Свобода в интернете с Rocket VPN'}`, description = "Одно решение для всего: обход белых списков, прокси для Telegram, YouTube без рекламы. Подключился — и просто пользуешься" }: Props) {
+export default function Hero({ picture = "phone", h1_string = `${'Свобода в интернете с Rocket VPN'}`, ctaHref, description = "Одно решение для всего: обход белых списков, прокси для Telegram, YouTube без рекламы. Подключился — и просто пользуешься" }: Props) {
   const wide = picture === "laptop" || picture === "laptop-2" || picture === "tv";
   const alt = pictureAlt[picture];
 
@@ -66,7 +67,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
           <ButtonLink
             iconBoolean
             className="mx-auto mt-[24px] xl:mt-[34px] min-w-[203px] py-[20px] xl:mx-0 xl:px-[44px] xl:py-[25px]"
-            href="/"
+            href={ctaHref || ""}
           >
             Подключить бесплатно
           </ButtonLink>
