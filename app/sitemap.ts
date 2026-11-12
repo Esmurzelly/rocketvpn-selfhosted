@@ -1,13 +1,3 @@
-// import type { MetadataRoute } from "next";
-// import { seo } from "@/content/seo";
-// import { site } from "@/lib/site";
-
-// export default function sitemap(): MetadataRoute.Sitemap {
-//   return Object.keys(seo).map((key) => ({
-//     url: key === "home" ? `${site.url}/` : `${site.url}/${key}`,
-//   }));
-// }
-
 import type { MetadataRoute } from "next";
 import { getPayload } from "payload";
 import config from "@payload-config";
@@ -24,7 +14,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     depth: 0,
   });
 
-  return docs.map((d) => ({
-    url: d.slug === "home" ? `${site.url}/` : `${site.url}/${d.slug}`,
-  }));
+  const posts = await payload.find({
+    collection: "posts",
+    where: {
+      and: [{ _status: { equals: "published" } }, { "seo.noindex": { not_equals: true } }],
+    },
+    pagination: false,
+    depth: 0,
+  });
+
+  return [
+    ...docs.map((d) => ({ url: d.slug === "home" ? `${site.url}/` : `${site.url}/${d.slug}` })),
+    ...posts.docs.map((p) => ({ url: `${site.url}/blog/${p.slug}`, lastModified: p.updatedAt })),
+  ];
 }

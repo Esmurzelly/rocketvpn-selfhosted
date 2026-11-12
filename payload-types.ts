@@ -70,6 +70,8 @@ export interface Config {
     users: User;
     media: Media;
     pages: Page;
+    redirects: Redirect;
+    posts: Post;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -80,6 +82,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
+    redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    posts: PostsSelect<false> | PostsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -177,7 +181,7 @@ export interface Media {
 export interface Page {
   id: number;
   /**
-   * Только латиница, цифры и дефис: telegram, dota2, tarif. Главная страница: home
+   * Латиница, цифры и дефис. При смене адреса со старого автоматически создаётся переадресация
    */
   slug: string;
   template: 'landing' | 'text' | 'document';
@@ -244,6 +248,92 @@ export interface Page {
   createdAt: string;
 }
 /**
+ * При смене адреса страницы запись создаётся автоматически. Здесь же можно добавить переадресацию вручную.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects".
+ */
+export interface Redirect {
+  id: number;
+  /**
+   * Начинается с «/», например: /old-page
+   */
+  from: string;
+  /**
+   * Адрес на сайте (/new-page) или полная ссылка (https://…)
+   */
+  to: string;
+  auto?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  title: string;
+  /**
+   * Латиница, цифры и дефис. Статья будет по адресу /blog/адрес. При смене адреса со старого создаётся переадресация
+   */
+  slug: string;
+  publishedAt?: string | null;
+  /**
+   * Показывается в списке статей. До 300 символов
+   */
+  excerpt: string;
+  cover: number | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  seo?: {
+    /**
+     * Пусто: возьмётся название статьи
+     */
+    title?: string | null;
+    /**
+     * Пусто: возьмётся краткое описание
+     */
+    description?: string | null;
+    keywords?: string | null;
+    /**
+     * Пусто: подставится адрес статьи
+     */
+    canonical?: string | null;
+    noindex?: boolean | null;
+  };
+  og?: {
+    /**
+     * Пусто: возьмётся Title
+     */
+    title?: string | null;
+    /**
+     * Пусто: возьмётся Description
+     */
+    description?: string | null;
+    /**
+     * Пусто: обложка статьи
+     */
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -278,6 +368,14 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'pages';
         value: number | Page;
+      } | null)
+    | ({
+        relationTo: 'redirects';
+        value: number | Redirect;
+      } | null)
+    | ({
+        relationTo: 'posts';
+        value: number | Post;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -399,6 +497,48 @@ export interface PagesSelect<T extends boolean = true> {
       };
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "redirects_select".
+ */
+export interface RedirectsSelect<T extends boolean = true> {
+  from?: T;
+  to?: T;
+  auto?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts_select".
+ */
+export interface PostsSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  publishedAt?: T;
+  excerpt?: T;
+  cover?: T;
+  content?: T;
+  seo?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        keywords?: T;
+        canonical?: T;
+        noindex?: T;
+      };
+  og?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -1,35 +1,7 @@
-// import type { Metadata } from "next";
-// import { seo } from "@/content/seo";
-// import { site } from "@/lib/site";
-
-// export function buildMetadata(key: string): Metadata {
-//   const p = seo[key];
-//   if (!p) return {};
-
-//   const path = key === "home" ? "/" : `/${key}`;
-//   const description = p.main_description ?? p.description;
-
-//   return {
-//     title: { absolute: p.title },
-//     description,
-//     keywords: p.keywords,
-//     alternates: { canonical: path },
-//     openGraph: {
-//       title: p.title,
-//       description,
-//       url: path,
-//       siteName: site.name,
-//       locale: "ru_RU",
-//       type: "website",
-//       images: [{ url: "/og.png", width: 1440, height: 740, alt: site.name }],
-//     },
-//   };
-// }
-
-
-// lib/seo.ts
 import type { Metadata } from "next";
 import { getPage } from "@/lib/pages";
+import { draftMode } from "next/headers";
+import { getPost } from "./posts";
 
 const DEFAULT_OG = { url: "/og.png", width: 1440, height: 740 };
 
@@ -62,6 +34,38 @@ export async function buildMetadata(slug: string): Promise<Metadata> {
           ? { url: img.url, width: img.width ?? undefined, height: img.height ?? undefined, alt: title }
           : { ...DEFAULT_OG, alt: title },
       ],
+    },
+  };
+}
+
+export async function buildPostMetadata(slug: string): Promise<Metadata> {
+  const { isEnabled } = await draftMode();
+  const post = await getPost(slug, isEnabled);
+  if (!post) return {};
+
+  const path = `/blog/${slug}`;
+  const title = post.seo?.title || `${post.title} | Rocket VPN`;
+  const description = post.seo?.description || post.excerpt;
+  const canonical = post.seo?.canonical || path;
+  const cover = typeof post.cover === "object" ? post.cover : null;
+  const ogImg = typeof post.og?.image === "object" && post.og.image ? post.og.image : cover;
+
+  return {
+    title: { absolute: title },
+    description,
+    keywords: post.seo?.keywords || undefined,
+    alternates: { canonical },
+    robots: post.seo?.noindex || isEnabled ? { index: false, follow: false } : undefined,
+    openGraph: {
+      title: post.og?.title || title,
+      description: post.og?.description || description,
+      url: canonical,
+      siteName: "Rocket VPN",
+      locale: "ru_RU",
+      type: "article",
+      images: ogImg?.url
+        ? [{ url: ogImg.url, width: ogImg.width ?? undefined, height: ogImg.height ?? undefined, alt: title }]
+        : [{ url: "/og.png", width: 1440, height: 740, alt: title }],
     },
   };
 }

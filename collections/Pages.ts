@@ -1,7 +1,6 @@
 import type { CollectionConfig } from "payload";
-
-// адреса, которые заняты самим сайтом или админкой
-const RESERVED_SLUGS = ["admin", "api", "dev-import", "dev-import-text"];
+import { RESERVED_SLUGS, LOCKED_SLUGS } from "../lib/slug-rules";
+import { slugRedirectHook } from "../lib/redirect-hooks";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -11,6 +10,9 @@ export const Pages: CollectionConfig = {
     defaultColumns: ["h1", "slug", "template", "updatedAt"],
   },
   access: { read: () => true },
+  hooks: {
+    afterChange: [slugRedirectHook("")],
+  },
   fields: [
     {
       name: "slug",
@@ -21,15 +23,30 @@ export const Pages: CollectionConfig = {
       index: true,
       admin: {
         position: "sidebar",
-        description: "Только латиница, цифры и дефис: telegram, dota2, tarif. Главная страница: home",
+        description: "Латиница, цифры и дефис. При смене адреса со старого автоматически создаётся переадресация",
       },
-      validate: (value?: string | null) => {
-        if (!/^[a-z0-9-]+$/.test(value ?? "")) {
-          return "Допустимы только строчные латинские буквы, цифры и дефис";
+      validate: async (value: string | null | undefined, { req, id }: any) => {
+        const slug = value ?? "";
+
+        if (!/^[a-z0-9-]+$/.test(slug)) return "Допустимы только строчные латинские буквы, цифры и дефис";
+        if (RESERVED_SLUGS.includes(slug)) return "Этот адрес зарезервирован, выберите другой";
+
+        // адрес страниц, подключённых в коде, менять нельзя
+        if (id) {
+          const current = await req.payload.findByID({ collection: "pages", id, depth: 0, req });
+          if (LOCKED_SLUGS.includes(current.slug) && current.slug !== slug) {
+            return "Адрес этой страницы менять нельзя: она подключена в коде сайта";
+          }
         }
-        if (RESERVED_SLUGS.includes(value as string)) {
-          return "Этот адрес зарезервирован, выберите другой";
-        }
+
+        // дубль
+        const { totalDocs } = await req.payload.count({
+          collection: "pages",
+          where: { slug: { equals: slug }, ...(id ? { id: { not_equals: id } } : {}) },
+          req,
+        });
+        if (totalDocs > 0) return "Страница с таким адресом уже существует";
+
         return true;
       },
     },

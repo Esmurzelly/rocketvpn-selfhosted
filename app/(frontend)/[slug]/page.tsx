@@ -1,4 +1,4 @@
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/seo";
 import Hero from "@/components/sections/Hero";
@@ -7,6 +7,7 @@ import CtaFinal from "@/components/sections/CtaFinal";
 import { getPage, getPageView, toFaqItems } from "@/lib/pages";
 import { RichText } from "@payloadcms/richtext-lexical/react";
 import TextPage from "@/components/sections/TextPage";
+import { findRedirect } from "@/lib/redirects";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -20,7 +21,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Page({ params }: Props) {
   const { slug } = await params;
   const page = await getPageView(slug);
-  if (!page) notFound();
+
+  if (!page) {
+    const to = await findRedirect(`/${slug}`);
+    if (to) permanentRedirect(to);
+    notFound();
+  }
 
   const faq = toFaqItems(page.faq);
 
