@@ -1,11 +1,6 @@
 import type { CollectionConfig } from "payload";
-import {
-  EXPERIMENTAL_TableFeature,
-  UploadFeature,
-  HeadingFeature,
-  lexicalEditor,
-} from "@payloadcms/richtext-lexical";
 import { slugRedirectHook } from "../lib/redirect-hooks";
+import { contentEditor } from "../lib/rich-text";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
 
@@ -101,41 +96,7 @@ export const Posts: CollectionConfig = {
               type: "richText",
               label: "Текст статьи",
               required: true,
-              editor: lexicalEditor({
-                features: ({ defaultFeatures }) => [
-                  // стандартные возможности без собственных вариантов заголовков и загрузки
-                  ...defaultFeatures.filter((f) => !["heading", "upload"].includes(f.key)),
-                  // заголовок H1 в тексте не нужен: он уже есть у статьи
-                  HeadingFeature({ enabledHeadingSizes: ["h2", "h3"] }),
-                  EXPERIMENTAL_TableFeature(),
-                  UploadFeature({
-                    collections: {
-                      media: {
-                        fields: [
-                          { name: "caption", type: "text", label: "Подпись под картинкой" },
-                          {
-                            name: "alt",
-                            type: "text",
-                            label: "Alt-текст",
-                            admin: { description: "Если пусто, возьмётся описание файла из раздела Media" },
-                          },
-                          {
-                            name: "size",
-                            type: "select",
-                            label: "Размер на странице",
-                            defaultValue: "full",
-                            options: [
-                              { label: "Маленькая", value: "small" },
-                              { label: "Средняя", value: "medium" },
-                              { label: "На всю ширину", value: "full" },
-                            ],
-                          },
-                        ],
-                      },
-                    },
-                  }),
-                ],
-              }),
+              editor: contentEditor({ images: true }),
             },
           ],
         },

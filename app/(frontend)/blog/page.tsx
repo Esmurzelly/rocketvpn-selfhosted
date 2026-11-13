@@ -12,6 +12,8 @@ export async function generateMetadata() {
 
 export default async function BlogPage() {
   const [page, posts] = await Promise.all([getPage("blog"), getPublishedPosts()]);
+
+
   if (!page) notFound();
 
   return (
@@ -32,12 +34,14 @@ export default async function BlogPage() {
           <ul className="mx-auto mt-[48px] grid max-w-[480px] gap-[18px] xl:mt-[80px] xl:max-w-page xl:grid-cols-3 xl:gap-5">
             {posts.map((post) => {
               const cover = typeof post.cover === "object" ? post.cover : null;
+              const src = cover?.sizes?.card?.url || cover?.url;
+
               return (
                 <li key={post.id}>
                   <article className="flex h-full flex-col rounded-[30px] border border-bg-country-border bg-bg-country p-[10px]">
                     <div className="relative aspect-[16/9] overflow-hidden rounded-[20px] bg-bg">
-                      {cover?.url && (
-                        <img src={cover.url} alt={cover.alt ?? ""} loading="lazy" className="size-full object-cover" />
+                      {src && (
+                        <img src={src} alt={cover?.alt ?? ""} loading="lazy" className="size-full object-cover" />
                       )}
                     </div>
 

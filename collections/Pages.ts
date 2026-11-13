@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
 import { RESERVED_SLUGS, LOCKED_SLUGS } from "../lib/slug-rules";
 import { slugRedirectHook } from "../lib/redirect-hooks";
+import { contentEditor } from "../lib/rich-text";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -96,7 +97,7 @@ export const Pages: CollectionConfig = {
               label: "Ссылка кнопки «Подключить»",
               admin: { description: "Если пусто, будет использована ссылка по умолчанию" },
             },
-            { name: "content", type: "richText", label: "Текст страницы" },
+            { name: "content", type: "richText", label: "Текст страницы", editor: contentEditor() },
           ],
         },
         {

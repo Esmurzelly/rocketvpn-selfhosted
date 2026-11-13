@@ -24,5 +24,12 @@ export default buildConfig({
     }),
     typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
     sharp,
-    globals: [Tariffs, SiteSettings]
+    globals: [Tariffs, SiteSettings],
+    upload: {
+        limits: { fileSize: 10 * 1024 * 1024 }, // 10 МБ на файл
+    }
 });
+
+if (process.env.NODE_ENV === "production" && !process.env.MEDIA_DIR) {
+    console.warn("[media] MEDIA_DIR не задан: файлы лежат внутри папки проекта и могут пропасть при обновлении сайта");
+}

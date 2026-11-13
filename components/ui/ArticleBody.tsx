@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any, @next/next/no-img-element */
 import { RichText, type JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import type { Page } from "@/payload-types";
+import { richConverters, tableClasses } from "./rich-shared";
 
 const SIZE: Record<string, string> = {
   small: "max-w-[320px]",
@@ -72,11 +73,9 @@ export default function ArticleBody({
         [&_p]:mt-6 [&_p]:text-[13px] [&_p]:leading-[150%] xl:[&_p]:text-[18px]
         [&_ul]:mt-6 [&_ul]:list-disc [&_ul]:pl-6 [&_ol]:mt-6 [&_ol]:list-decimal [&_ol]:pl-6 [&_li]:mt-2
         [&_a]:underline [&>:first-child]:mt-0
-        [&_td]:border [&_td]:border-bg-country-border [&_td]:px-3 [&_td]:py-2
-        [&_th]:border [&_th]:border-bg-country-border [&_th]:bg-bg-country [&_th]:px-3 [&_th]:py-2 [&_th]:font-medium
-        [&_td_p]:m-0 [&_th_p]:m-0 ${className}`}
+        ${tableClasses} ${className}`}
     >
-      <RichText data={data} converters={converters} />
+      <RichText data={data} converters={richConverters} />
     </div>
   );
 }
