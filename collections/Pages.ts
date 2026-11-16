@@ -1,7 +1,8 @@
 import type { CollectionConfig } from "payload";
 import { RESERVED_SLUGS, LOCKED_SLUGS } from "../lib/slug-rules";
-import { slugRedirectHook } from "../lib/redirect-hooks";
+import { slugRedirectHook, deleteRedirectsHook } from "../lib/redirect-hooks";
 import { contentEditor } from "../lib/rich-text";
+import { revalidateAfterChange, revalidateAfterDelete } from "../lib/revalidate";
 
 export const Pages: CollectionConfig = {
   slug: "pages",
@@ -10,9 +11,13 @@ export const Pages: CollectionConfig = {
     useAsTitle: "h1",
     defaultColumns: ["h1", "slug", "template", "updatedAt"],
   },
-  access: { read: () => true },
+  access: {
+    read: () => true,
+    delete: ({ req }) => (req.user ? { slug: { not_in: LOCKED_SLUGS } } : false),
+  },
   hooks: {
-    afterChange: [slugRedirectHook("")],
+    afterChange: [slugRedirectHook(""), revalidateAfterChange("pages")],
+    afterDelete: [deleteRedirectsHook(""), revalidateAfterDelete("pages")],
   },
   fields: [
     {

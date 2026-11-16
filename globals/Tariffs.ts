@@ -1,6 +1,7 @@
 import type { Field, GlobalConfig } from "payload";
 import { PLANS } from "../lib/tariffs";
 import { validateLink } from "../lib/validate-link";
+import { revalidateGlobal } from "../lib/revalidate";
 
 const planGroup = (p: (typeof PLANS)[number]): Field => ({
   name: `plan${p.id}`,
@@ -37,7 +38,7 @@ const planGroup = (p: (typeof PLANS)[number]): Field => ({
       validate: validateLink,
       admin: { description: "Если пусто, используется ссылка из раздела «Ссылки кнопок»" },
     },
-  ],
+  ]
 });
 
 export const Tariffs: GlobalConfig = {
@@ -45,4 +46,5 @@ export const Tariffs: GlobalConfig = {
   label: "Тарифы",
   access: { read: () => true },
   fields: PLANS.map(planGroup),
+  hooks: { afterChange: [revalidateGlobal("tariffs")] }
 };

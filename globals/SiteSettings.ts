@@ -1,10 +1,12 @@
 import type { GlobalConfig } from "payload";
 import { validateLink } from "../lib/validate-link";
+import { revalidateGlobal } from "@/lib/revalidate";
 
 export const SiteSettings: GlobalConfig = {
   slug: "site-settings",
   label: "Ссылки кнопок",
   access: { read: () => true },
+  hooks: { afterChange: [revalidateGlobal("settings")] },
   fields: [
     {
       name: "ctaUrl",

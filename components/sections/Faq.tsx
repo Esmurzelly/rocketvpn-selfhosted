@@ -1,7 +1,4 @@
-export type FaqItem = {
-  question: string;
-  answer: string;
-};
+import { FaqItem } from "@/content/faq";
 
 type Props = {
   items: FaqItem[];

@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import type { CollectionConfig } from "payload";
+import { revalidateAfterChange, revalidateAfterDelete } from "../lib/revalidate";
 
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -22,6 +23,10 @@ export const Media: CollectionConfig = {
     ],
     // оригинал не больше 2400 px по ширине: не копим огромные файлы на диске
     resizeOptions: { width: 2400, withoutEnlargement: true },
+  },
+  hooks: {
+    afterChange: [revalidateAfterChange("media")],
+    afterDelete: [revalidateAfterDelete("media")],
   },
   fields: [
     {

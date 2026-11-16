@@ -12,6 +12,9 @@ import { SiteSettings } from "./globals/SiteSettings";
 import { Redirects } from "./collections/Redirects";
 import { Posts } from "./collections/Posts";
 
+import { en } from '@payloadcms/translations/languages/en'
+import { ru } from '@payloadcms/translations/languages/ru'
+
 const dirname = path.dirname(fileURLToPath(import.meta.url));
 
 export default buildConfig({
@@ -27,7 +30,11 @@ export default buildConfig({
     globals: [Tariffs, SiteSettings],
     upload: {
         limits: { fileSize: 10 * 1024 * 1024 }, // 10 МБ на файл
-    }
+    },
+    i18n: {
+        supportedLanguages: { en, ru },
+        fallbackLanguage: "ru"
+    },
 });
 
 if (process.env.NODE_ENV === "production" && !process.env.MEDIA_DIR) {

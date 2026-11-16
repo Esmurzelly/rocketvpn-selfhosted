@@ -1,6 +1,7 @@
 import type { CollectionConfig } from "payload";
-import { slugRedirectHook } from "../lib/redirect-hooks";
+import { deleteRedirectsHook, slugRedirectHook } from "../lib/redirect-hooks";
 import { contentEditor } from "../lib/rich-text";
+import { revalidateAfterChange, revalidateAfterDelete } from "@/lib/revalidate";
 
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || "http://localhost:3000";
 
@@ -43,7 +44,8 @@ export const Posts: CollectionConfig = {
         return data;
       },
     ],
-    afterChange: [slugRedirectHook("/blog")],
+    afterChange: [slugRedirectHook("/blog"), revalidateAfterChange("posts")],
+    afterDelete: [deleteRedirectsHook("/blog"), revalidateAfterDelete("posts")],
   },
   fields: [
     { name: "title", type: "text", label: "Название", required: true },

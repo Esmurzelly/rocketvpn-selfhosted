@@ -1,11 +1,29 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { getPayload } from "payload";
 import config from "@payload-config";
 import { PLANS, rub, type PlanView } from "@/lib/tariffs";
 
+const fetchSettings = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config });
+    return payload.findGlobal({ slug: "site-settings" });
+  },
+  ["site-settings"],
+  { tags: ["settings"], revalidate: 3600 },
+);
+
+const fetchTariffs = unstable_cache(
+  async () => {
+    const payload = await getPayload({ config });
+    return payload.findGlobal({ slug: "tariffs" });
+  },
+  ["tariffs"],
+  { tags: ["tariffs"], revalidate: 3600 },
+);
+
 export const getSettings = cache(async () => {
-  const payload = await getPayload({ config });
-  const s = await payload.findGlobal({ slug: "site-settings" });
+  const s = await fetchSettings();
   return {
     ctaUrl: s.ctaUrl || "/tarif",
     trialUrl: s.trialUrl || s.ctaUrl || "/tarif",
@@ -14,12 +32,7 @@ export const getSettings = cache(async () => {
 });
 
 export const getPlans = cache(async (): Promise<PlanView[]> => {
-  const payload = await getPayload({ config });
-  const [data, settings] = await Promise.all([
-    payload.findGlobal({ slug: "tariffs" }),
-    getSettings(),
-  ]);
-
+  const [data, settings] = await Promise.all([fetchTariffs(), getSettings()]);
   const groups = { "1m": data.plan1m, "3m": data.plan3m, "6m": data.plan6m, "12m": data.plan12m };
 
   return PLANS.map((p) => {
