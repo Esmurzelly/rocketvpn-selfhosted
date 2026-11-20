@@ -1,6 +1,10 @@
 import type { CollectionConfig } from "payload";
 import { RESERVED_SLUGS, LOCKED_SLUGS } from "../lib/slug-rules";
-import { slugRedirectHook, deleteRedirectsHook } from "../lib/redirect-hooks";
+import {
+  capturePublishedSlugHook,
+  deleteRedirectsHook,
+  slugRedirectHook,
+} from "../lib/redirect-hooks";
 import { contentEditor } from "../lib/rich-text";
 import { revalidateAfterChange, revalidateAfterDelete } from "../lib/revalidate";
 
@@ -16,8 +20,29 @@ export const Pages: CollectionConfig = {
     delete: ({ req }) => (req.user ? { slug: { not_in: LOCKED_SLUGS } } : false),
   },
   hooks: {
-    afterChange: [slugRedirectHook(""), revalidateAfterChange("pages")],
-    afterDelete: [deleteRedirectsHook(""), revalidateAfterDelete("pages")],
+    beforeChange: [
+      // Сохраняем slug опубликованной версии до её изменения
+      capturePublishedSlugHook,
+
+      ({ data }) => {
+        // Дата заполняется при первой публикации, если её не задали вручную
+        if (data._status === "published" && !data.publishedAt) {
+          data.publishedAt = new Date().toISOString();
+        }
+
+        return data;
+      },
+    ],
+
+    afterChange: [
+      slugRedirectHook("/blog"),
+      revalidateAfterChange("posts"),
+    ],
+
+    afterDelete: [
+      deleteRedirectsHook("/blog"),
+      revalidateAfterDelete("posts"),
+    ],
   },
   fields: [
     {

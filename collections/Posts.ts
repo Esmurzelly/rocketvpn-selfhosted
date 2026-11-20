@@ -1,5 +1,5 @@
 import type { CollectionConfig } from "payload";
-import { deleteRedirectsHook, slugRedirectHook } from "../lib/redirect-hooks";
+import { deleteRedirectsHook, slugRedirectHook, capturePublishedSlugHook } from "../lib/redirect-hooks";
 import { contentEditor } from "../lib/rich-text";
 import { revalidateAfterChange, revalidateAfterDelete } from "@/lib/revalidate";
 
@@ -36,16 +36,24 @@ export const Posts: CollectionConfig = {
   },
   hooks: {
     beforeChange: [
+      capturePublishedSlugHook,
+
       ({ data }) => {
-        // дата заполняется при первой публикации, если её не задали вручную
         if (data._status === "published" && !data.publishedAt) {
           data.publishedAt = new Date().toISOString();
         }
+
         return data;
       },
     ],
-    afterChange: [slugRedirectHook("/blog"), revalidateAfterChange("posts")],
-    afterDelete: [deleteRedirectsHook("/blog"), revalidateAfterDelete("posts")],
+    afterChange: [
+      slugRedirectHook("/blog"),
+      revalidateAfterChange("posts"),
+    ],
+    afterDelete: [
+      deleteRedirectsHook("/blog"),
+      revalidateAfterDelete("posts"),
+    ],
   },
   fields: [
     { name: "title", type: "text", label: "Название", required: true },
