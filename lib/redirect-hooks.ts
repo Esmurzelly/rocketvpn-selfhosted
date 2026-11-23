@@ -1,95 +1,67 @@
-
+// lib/redirect-hooks.ts
 import type {
   CollectionAfterChangeHook,
   CollectionAfterDeleteHook,
   CollectionBeforeChangeHook,
 } from "payload";
 
-// Получаем slug последней опубликованной версии до сохранения изменений
-export const capturePublishedSlugHook: CollectionBeforeChangeHook =
-  async ({ data, operation, originalDoc, req }) => {
-    console.log("[capturePublishedSlugHook]", {
-      operation,
-      incomingSlug: data?.slug,
-      status: data?._status,
-      documentId: originalDoc?.id,
-    });
+// У коллекций без черновиков (страницы) поля _status нет: такой материал считается опубликованным
+const isLive = (status?: string | null) => !status || status === "published";
 
-    // Нас интересует только публикация существующей статьи
-    if (
-      operation !== "update" ||
-      data?._status !== "published" ||
-      !originalDoc?.id
-    ) {
-      return data;
-    }
+// До записи: запоминаем адрес, который СЕЙЧАС работает на сайте
+export const captureSlugHook =
+  (collectionSlug: string): CollectionBeforeChangeHook =>
+  async ({ data, operation, originalDoc, req }) => {
+    if (operation !== "update" || !originalDoc?.id) return data;
+
+    // сохранение черновика сайт не меняет
+    if (!isLive(data?._status)) return data;
 
     try {
-      const live = await req.payload.findByID({
-        collection: "posts",
+      const live = (await req.payload.findByID({
+        collection: collectionSlug as never,
         id: originalDoc.id,
-        draft: false,
+        draft: false, // опубликованная версия, а не последний черновик
         depth: 0,
         req,
         overrideAccess: true,
-      });
+      })) as { slug?: string; _status?: string };
 
-      console.log("[capturePublishedSlugHook] published version:", {
-        slug: live.slug,
-        status: live._status,
-      });
-
-      // Сохраняем только реально существовавший опубликованный адрес
-      if (live._status === "published" && live.slug) {
+      // старый адрес существовал на сайте только если материал был опубликован
+      if (isLive(live._status) && live.slug) {
         req.context.liveSlug = live.slug;
       }
-    } catch (error) {
-      // Например, статья ещё ни разу не публиковалась
-      console.log(
-        "[capturePublishedSlugHook] No previous published version:",
-        error,
-      );
+    } catch {
+      // материала нет или он ещё ни разу не публиковался
     }
 
     return data;
   };
 
+// После записи: создаём переадресацию со старого адреса на новый
 export const slugRedirectHook =
   (basePath: string): CollectionAfterChangeHook =>
-  async ({ doc, operation, req, context }) => {
-    console.log("=== slugRedirectHook FIRED ===", {
-      operation,
-      slug: doc.slug,
-      status: doc._status,
-    });
-
+  async ({ doc, operation, req, collection, context }) => {
     if (context?.skipRedirectHook) return doc;
 
-    // Черновики не меняют публичные адреса
-    if (doc._status !== "published") return doc;
+    // черновики не меняют публичные адреса
+    if (!isLive(doc._status)) return doc;
 
     const newPath = `${basePath}/${doc.slug}`;
+    const oldSlug = context?.liveSlug as string | undefined;
 
-    // Получаем старый slug из контекста того же запроса публикации
-    const oldSlug = req.context.liveSlug as string | undefined;
-
-    console.log("[slugRedirectHook] captured old slug:", oldSlug);
-
-    // Убираем редирект, если новый адрес ранее использовался как старый
+    // 1. если новый адрес раньше был «старым» в переадресации, она теряет смысл
     await req.payload.delete({
       collection: "redirects",
       where: { from: { equals: newPath } },
       req,
     });
 
-    // Нет старой опубликованной версии или адрес не изменился
-    if (!oldSlug || oldSlug === doc.slug) {
-      return doc;
-    }
+    if (operation !== "update" || !oldSlug || oldSlug === doc.slug) return doc;
 
     const oldPath = `${basePath}/${oldSlug}`;
 
-    // Обновляем цепочки редиректов, которые вели на старый адрес
+    // 2. цепочки: всё, что вело на старый адрес, теперь ведёт на новый
     await req.payload.update({
       collection: "redirects",
       where: { to: { equals: oldPath } },
@@ -97,7 +69,7 @@ export const slugRedirectHook =
       req,
     });
 
-    // Проверяем, существует ли уже редирект со старого адреса
+    // 3. переадресация со старого адреса: обновляем существующую или создаём новую
     const existing = await req.payload.find({
       collection: "redirects",
       where: { from: { equals: oldPath } },
@@ -107,7 +79,6 @@ export const slugRedirectHook =
     });
 
     if (existing.docs[0]) {
-      // Обновляем существующий редирект вместо создания дубликата
       await req.payload.update({
         collection: "redirects",
         id: existing.docs[0].id,
@@ -115,39 +86,24 @@ export const slugRedirectHook =
         req,
       });
     } else {
-      // Создаём новый редирект
       await req.payload.create({
         collection: "redirects",
-        data: {
-          from: oldPath,
-          to: newPath,
-          auto: true,
-        },
+        data: { from: oldPath, to: newPath, auto: true },
         req,
       });
     }
 
-    // Обновляем canonical, если он указывал на старый URL
-    const seo = (doc as {
-      seo?: { canonical?: string | null };
-    }).seo;
-
+    // 4. canonical, заданный вручную на старый адрес, обновляем тоже
+    const seo = (doc as { seo?: { canonical?: string | null } }).seo;
     if (seo?.canonical === oldPath) {
       await req.payload.update({
-        collection: "posts",
+        collection: collection.slug as never,
         id: doc.id,
-        data: {
-          seo: { ...seo, canonical: newPath },
-        } as never,
+        data: { seo: { ...seo, canonical: newPath } } as never,
         req,
         context: { skipRedirectHook: true },
       });
     }
-
-    console.log("[slugRedirectHook] redirect created:", {
-      from: oldPath,
-      to: newPath,
-    });
 
     return doc;
   };
@@ -157,11 +113,8 @@ export const deleteRedirectsHook =
   async ({ doc, req }) => {
     await req.payload.delete({
       collection: "redirects",
-      where: {
-        to: { equals: `${basePath}/${doc.slug}` },
-      },
+      where: { to: { equals: `${basePath}/${doc.slug}` } },
       req,
     });
-
     return doc;
   };
