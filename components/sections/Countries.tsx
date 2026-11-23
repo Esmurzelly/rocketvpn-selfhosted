@@ -27,57 +27,54 @@ const items = [
     { id: 17, name: "Литва", imagePath: "/icons/flags/lit.svg", imgAlt: "lit" },
     { id: 18, name: "Мексика", imagePath: "/icons/flags/mex.svg", imgAlt: "mex" },
     { id: 19, name: "Обход Белых списков", imagePath: "/icons/flags/progress.svg", imgAlt: "list" },
-]
+];
 
-const Countries = (props: Props) => {
-    return (
-        <section id="countries" className="scroll-mt-28 flex flex-col items-center px-[16px] xl:px-0 xl:w-[1180px] xl:mx-auto mt-[64px]">
-            <h2 className="text-[26px] xl:text-[56px] leading-[120%] tracking-[-0.05em] text-center xl:text-left w-full">Доступные страны</h2>
+const FAST_IDS = [0, 4, 8, 12, 16];
 
-            <div className="no-scrollbar -mx-4 mt-[25px] self-stretch overflow-x-auto overflow-y-hidden px-4 xl:mx-0 xl:overflow-visible xl:px-0">
-                <ul className="grid w-max grid-cols-[repeat(4,240px)] xl:grid-cols-[repeat(4,280px)] gap-[10px] xl:gap-[20px] xl:w-full xl:grid-rows-5">
-                    {items.map((item) => (
-                        <li className="rounded-button w-full flex flex-row items-center justify-between bg-bg-country border border-bg-country-border px-[10px] py-[6px]" key={item.id}>
-                            <div className="flex flex-row items-center gap-3">
-                                {item.id === 19 ?
-                                    <Image
-                                        src={item.imagePath}
-                                        alt={item.imgAlt}
-                                        width={44}
-                                        height={44}
-                                        sizes=""
-                                        className="max-w-[44px] bg-white p-[5px] rounded-full h-[44px]"
-                                    />
-                                    :
-                                    <Image
-                                        src={item.imagePath}
-                                        alt={item.imgAlt}
-                                        width={44}
-                                        height={44}
-                                        sizes=""
-                                        className="max-w-[44px]"
-                                    />
-                                }
+const BADGE_ID = 19;
 
-                                <div className="flex flex-col items-start">
-                                    <span className="text-[14px] xl:text-[17px]">{item.name}</span>
-                                    {item.id === 12 ? <span className="text-[12px] xl:text-[15px] text-text-gray">YouTube без рекламы</span> : ""}
-                                </div>
-                            </div>
-                            {item.id === 0 || item.id === 4 || item.id === 8 || item.id === 12 || item.id === 16 ? <Image
-                                src="/icons/blitz.svg"
-                                alt="blitz"
-                                width={12}
-                                height={18}
-                                sizes=""
-                                className="max-w-[20px] mr-[19px]"
-                            /> : ""}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-        </section>
-    )
-}
+const Countries = () => {
+  return (
+    <section id="countries" className="mt-[64px] flex scroll-mt-28 flex-col items-center px-[16px] xl:mx-auto xl:w-[1180px] xl:px-0">
+      <h2 className="w-full text-center text-[26px] leading-[120%] tracking-[-0.05em] xl:text-left xl:text-[56px]">
+        Доступные страны
+      </h2>
+
+      <div className="no-scrollbar -mx-4 mt-[25px] self-stretch overflow-x-auto overflow-y-hidden px-4 xl:mx-0 xl:overflow-visible xl:px-0">
+        <ul className="grid w-max grid-cols-[repeat(4,240px)] gap-[10px] xl:w-full xl:grid-cols-[repeat(4,280px)] xl:grid-rows-5 xl:gap-[20px]">
+          {items.map((item) => (
+            <li
+              key={item.id}
+              className="flex w-full flex-row items-center justify-between rounded-button border border-bg-country-border bg-bg-country px-[10px] py-[6px]"
+            >
+              <div className="flex flex-row items-center gap-3">
+                {item.id === BADGE_ID ? (
+                  // белый круг отдельно, значок внутри него меньше
+                  <span className="grid size-[44px] shrink-0 place-items-center rounded-full bg-white">
+                    <Image src={item.imagePath} alt="" width={24} height={24} className="size-[22px]" />
+                  </span>
+                ) : (
+                  <Image src={item.imagePath} alt="" width={44} height={44} className="size-[44px] shrink-0" />
+                )}
+
+                <div className="flex flex-col items-start">
+                  <span className="text-[14px] xl:text-[17px]">{item.name}</span>
+                  {item.id === 12 && (
+                    <span className="text-[12px] text-text-gray xl:text-[15px]">YouTube без рекламы</span>
+                  )}
+                </div>
+              </div>
+
+              {FAST_IDS.includes(item.id) && (
+                <Image src="/icons/blitz.svg" alt="" width={12} height={18} className="mr-[19px] max-w-[20px]" />
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+  );
+};
+
 
 export default Countries
