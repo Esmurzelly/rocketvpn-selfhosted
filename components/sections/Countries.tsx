@@ -49,7 +49,6 @@ const Countries = () => {
             >
               <div className="flex flex-row items-center gap-3">
                 {item.id === BADGE_ID ? (
-                  // белый круг отдельно, значок внутри него меньше
                   <span className="grid size-[44px] shrink-0 place-items-center rounded-full bg-white">
                     <Image src={item.imagePath} alt="" width={24} height={24} className="size-[22px]" />
                   </span>

@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Speedometer from "./Speedometer";
 
 const card =
     "relative overflow-hidden border border-bg-country-border bg-card-gray p-[20px] pb-[0px] " +
@@ -71,13 +72,15 @@ const Whyus = (props: Props) => {
                         </div>
 
                         <div className="xl:flex xl:flex-col xl:self-stretch pb-[23px] xl:pb-0">
-                            <Image
+                            {/* <Image
                                 src="/images/speed.png"
                                 alt="Спидометр и загрузка файла на высокой скорости"
                                 width={220}
                                 height={118}
-                                className="mx-auto  h-auto w-full max-w-[300px] self-center xl:w-[420px]"
-                            />
+                                className="mx-auto h-auto w-full max-w-[300px] self-center xl:w-[420px]"
+                            /> */}
+
+                            <Speedometer />
 
                             <div className="flex flex-row items-center gap-3 xl:mt-auto">
                                 <Image

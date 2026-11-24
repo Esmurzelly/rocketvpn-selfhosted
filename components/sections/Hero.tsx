@@ -49,7 +49,7 @@ export default async function Hero({ picture = "phone", h1_string = `${'Своб
     width: 272,
     height: 346,
     sizes: "272px",
-    className: `h-auto xl:w-[588px] ${phone_types ? "xl:ml-[60px]" : "xl:ml-0"} xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "max-w-[420px]" : "min-w-[220px]"
+    className: `h-auto xl:w-[588px] animate-flip ${phone_types ? "xl:ml-[60px]" : "xl:ml-0"} xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "max-w-[420px]" : "min-w-[220px]"
       }`,
   });
 
