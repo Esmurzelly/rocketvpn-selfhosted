@@ -1,5 +1,6 @@
 import Logo from "@/components/ui/Logo";
 import ButtonLink from "@/components/ui/ButtonLink";
+import { getSettings } from "@/lib/site-data";
 
 type Props = {
   title?: string;
@@ -8,12 +9,14 @@ type Props = {
   buttonLabel?: string;
 };
 
-export default function CtaFinal({
+export default async function CtaFinal({
   title = "Начните пользоваться Rocket VPN уже сегодня",
   text = "Подключите быстрый и стабильный VPN для всех нужных сервисов — без сложных настроек и лишних действий",
   href = "/",
   buttonLabel = "Подключить VPN",
 }: Props) {
+  const settings = await getSettings();
+
   return (
     <section className="mt-[80px] flex flex-col items-center px-[17px] text-center xl:mt-[162px]">
       <Logo className="text-[14px] xl:text-[18px] !py-2 !border-none" />
@@ -26,7 +29,7 @@ export default function CtaFinal({
         {text}
       </p>
 
-      <ButtonLink iconBoolean href={href} className="mt-9 xl:mt-10 min-w-[210px] px-[26.5px] py-[25px]">
+      <ButtonLink iconBoolean href={href || settings.ctaUrl} className="mt-9 xl:mt-10 min-w-[210px] px-[26.5px] py-[25px]">
         {buttonLabel}
       </ButtonLink>
     </section>

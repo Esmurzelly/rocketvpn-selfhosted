@@ -1,0 +1,42 @@
+import path from "path";
+import { fileURLToPath } from "url";
+import sharp from "sharp";
+import { buildConfig } from "payload";
+import { postgresAdapter } from "@payloadcms/db-postgres";
+import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { Users } from "./collections/Users";
+import { Media } from "./collections/Media";
+import { Pages } from "./collections/Pages";
+import { Tariffs } from "./globals/Tariffs";
+import { SiteSettings } from "./globals/SiteSettings";
+import { Redirects } from "./collections/Redirects";
+import { Posts } from "./collections/Posts";
+
+import { en } from '@payloadcms/translations/languages/en'
+import { ru } from '@payloadcms/translations/languages/ru'
+
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+
+export default buildConfig({
+    admin: { user: Users.slug },
+    collections: [Users, Media, Pages, Redirects, Posts],
+    editor: lexicalEditor(),
+    secret: process.env.PAYLOAD_SECRET || "",
+    db: postgresAdapter({
+        pool: { connectionString: process.env.DATABASE_URL_POOLED },
+    }),
+    typescript: { outputFile: path.resolve(dirname, "payload-types.ts") },
+    sharp,
+    globals: [Tariffs, SiteSettings],
+    upload: {
+        limits: { fileSize: 10 * 1024 * 1024 }, // 10 МБ на файл
+    },
+    i18n: {
+        supportedLanguages: { en, ru },
+        fallbackLanguage: "ru"
+    },
+});
+
+if (process.env.NODE_ENV === "production" && !process.env.MEDIA_DIR) {
+    console.warn("[media] MEDIA_DIR не задан: файлы лежат внутри папки проекта и могут пропасть при обновлении сайта");
+}

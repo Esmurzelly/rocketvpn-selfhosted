@@ -11,7 +11,7 @@ import { NAV_ITEMS } from "@/content/tariffs"
 const pill =
   "text-center px-4 py-[13.5px] bg-button-dark border-[0.5px] rounded-[55px] border-button-dark-border";
 
-export default function Header() {
+export default function Header({ loginUrl }: { loginUrl: string }) {
   const [activeSection, setActiveSection] = useState("home");
   const [showModal, setShowModal] = useState(false);
 
@@ -56,7 +56,7 @@ export default function Header() {
         </nav>
 
         <div>
-          <Link href="/" className={`${pill} hidden xl:flex min-w-[123px] items-center gap-[6px] xl:px-[37px] xl:py-[18px] text-[12px]`}>
+          <Link href={loginUrl} className={`${pill} hidden xl:flex min-w-[123px] items-center gap-[6px] xl:px-[37px] xl:py-[18px] text-[12px]`}>
             <Image
               src="/icons/sign-in.svg"
               alt="sign-in.svg"
@@ -80,7 +80,7 @@ export default function Header() {
         </div>
       </div>
 
-      <MobileMenu showModal={showModal} setShowModal={setShowModal} />
+      <MobileMenu showModal={showModal} setShowModal={setShowModal} loginUrl={loginUrl} />
     </header>
   );
 }

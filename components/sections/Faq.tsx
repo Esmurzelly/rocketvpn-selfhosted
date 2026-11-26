@@ -1,4 +1,4 @@
-import type { FaqItem } from "@/content/faq";
+import { FaqItem } from "@/content/faq";
 
 type Props = {
   items: FaqItem[];

@@ -1,6 +1,7 @@
 import Image, { getImageProps } from "next/image";
 import ButtonLink from "../ui/ButtonLink";
 import type { HeroPicture } from "@/content/hero-pictures";
+import { getSettings } from "@/lib/site-data";
 
 const stats = [
   { n: "01", value: "186k+", label: "активных пользователей" },
@@ -22,10 +23,15 @@ type Props = {
   h1_string?: string;
   description?: string;
   picture?: HeroPicture;
+  ctaHref?: string | undefined;
 };
 
 
-export default function Hero({ picture = "phone", h1_string = `${'Свобода в интернете с Rocket VPN'}`, description = "Одно решение для всего: обход белых списков, прокси для Telegram, YouTube без рекламы. Подключился — и просто пользуешься" }: Props) {
+export default async function Hero({ picture = "phone", h1_string = `${'Свобода в интернете с Rocket VPN'}`, ctaHref, description = "Одно решение для всего: обход белых списков, прокси для Telegram, YouTube без рекламы. Подключился — и просто пользуешься" }: Props) {
+  const settings = await getSettings();
+
+  const phone_types = picture === "phone" || picture === "phone-2" || picture === "phone-3";
+  
   const wide = picture === "laptop" || picture === "laptop-2" || picture === "tv";
   const alt = pictureAlt[picture];
 
@@ -43,7 +49,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
     width: 272,
     height: 346,
     sizes: "272px",
-    className: `h-auto xl:w-[588px] xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "max-w-[420px]" : "min-w-[220px]"
+    className: `h-auto xl:w-[588px] animate-flip ${phone_types ? "xl:ml-[60px]" : "xl:ml-0"} xl:min-w-0 xl:max-w-none xl:shrink-0 ${wide ? "max-w-[420px]" : "min-w-[220px]"
       }`,
   });
 
@@ -66,7 +72,7 @@ export default function Hero({ picture = "phone", h1_string = `${'Свобода
           <ButtonLink
             iconBoolean
             className="mx-auto mt-[24px] xl:mt-[34px] min-w-[203px] py-[20px] xl:mx-0 xl:px-[44px] xl:py-[25px]"
-            href="/"
+            href={ctaHref || settings.ctaUrl}
           >
             Подключить бесплатно
           </ButtonLink>
